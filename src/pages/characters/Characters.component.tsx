@@ -1,5 +1,5 @@
 import React from 'react';
 
-export function Games() {
+export const CharactesComponent = () => {
   return <div>Hello Games</div>;
-}
+};
