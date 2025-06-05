@@ -34,7 +34,9 @@ export function NaviagtionBar({
               </svg>
             </label>
           </div>
-          <div className="mx-2 flex-1 px-2">Games App</div>
+          <div className="mx-2 flex-1 px-2"> 
+            <Link to="/">Games App</Link>
+           </div>
           <div className="flex-none">
             <div className="dropdown dropdown-end mr-3">
               <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">

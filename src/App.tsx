@@ -1,7 +1,8 @@
 import './App.scss';
 import { AuthComponent } from './pages/auth/auth';
 import { NaviagtionBar } from './shared/components/navigation-bar/navigation-bar';
-import { Link, BrowserRouter, Routes } from 'react-router-dom';
+import { Link, BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ApplicationRoutes } from './shared/components/routes/routes.component';
 
 function App() {
   const sideNavItems = (
@@ -24,7 +25,7 @@ function App() {
     <BrowserRouter>
       <NaviagtionBar routes={sideNavItems}>
         <AuthComponent />
-        <Routes></Routes>
+        <ApplicationRoutes />
       </NaviagtionBar>
     </BrowserRouter>
   );
