@@ -1,3 +1,3 @@
 export const MyWishListComponent = () => {
-    return <></>
-}
+  return <></>;
+};

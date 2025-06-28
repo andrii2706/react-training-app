@@ -1,6 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { SignInInterface } from '../../shared/models/authForm.inteface';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 export const AuthComponent = () => {
   const {
@@ -33,11 +35,11 @@ export const AuthComponent = () => {
         />
         {errors.password && <p>{errors.password.message}</p>}
         <div className="flex justify-center items-center">
-          <button>Register</button>
-          <button className="mx-4" type="submit">
+          <button className='btn btn-soft' >Register</button>
+          <button className="btn btn-soft mx-4" type="submit">
             Sign In
           </button>
-          <button>Google</button>
+          <button className='btn btn-soft btn-square' ><FontAwesomeIcon icon={faGoogle} /></button>
         </div>
       </form>
     </>

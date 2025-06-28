@@ -12,30 +12,14 @@ export const ApplicationRoutes = () => {
   return (
     <>
       <Routes>
-        <Route>
-             <AuthComponent/> 
-          </Route>
-        <Route>
-            <CharactesComponent/>
-        </Route>
-        <Route>
-            <ProfileComponent/>
-        </Route>
-        <Route>
-            <SettingsComponent/>
-        </Route>
-        <Route>
-            <HomeComponent/>
-        </Route>
-        <Route>
-            <EpisodesComponent/>
-        </Route>
-        <Route>
-            <LocationComponent/>
-        </Route>
-        <Route>
-            <MyWishListComponent/>
-        </Route>
+        <Route path="/" element={<AuthComponent />} />
+        <Route path="/characters" element={<CharactesComponent />} />
+        <Route path="/profile" element={<ProfileComponent />} />
+        <Route path="/settings" element={<SettingsComponent />} />
+        <Route path="/home" element={<HomeComponent />} />
+        <Route path="/episodes" element={<EpisodesComponent />} />
+        <Route path="/locations" element={<LocationComponent />} />
+        <Route path="/wish-list" element={<MyWishListComponent />} />
       </Routes>
     </>
   );
