@@ -1,16 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 //@ts-ignore
-const initialState = []
+const initialState = [];
 
 const charactersData = createSlice({
-    name: 'charactersData', 
+  name: 'charactersData',
+  //@ts-ignore
+  initialState,
+  reducers: {
     //@ts-ignore
-    initialState,
-    reducers:{
-        //@ts-ignore
-        charactersDataInfo: (state) => state.values
-    }
-})
+    charactersDataInfo: state => state.values,
+  },
+});
 
 export default charactersData.reducer;

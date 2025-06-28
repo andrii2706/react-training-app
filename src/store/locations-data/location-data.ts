@@ -1,16 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 //@ts-ignore
-const initialState = []
+const initialState = [];
 
 const locationsData = createSlice({
-    name: 'locationsData', 
+  name: 'locationsData',
+  //@ts-ignore
+  initialState,
+  reducers: {
     //@ts-ignore
-    initialState,
-    reducers:{
-        //@ts-ignore
-        locationsDataInfo: (state) => state.values
-    }
-})
+    locationsDataInfo: state => state.values,
+  },
+});
 
 export default locationsData.reducer;

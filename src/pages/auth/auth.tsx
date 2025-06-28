@@ -35,11 +35,13 @@ export const AuthComponent = () => {
         />
         {errors.password && <p>{errors.password.message}</p>}
         <div className="flex justify-center items-center">
-          <button className='btn btn-soft' >Register</button>
+          <button className="btn btn-soft">Register</button>
           <button className="btn btn-soft mx-4" type="submit">
             Sign In
           </button>
-          <button className='btn btn-soft btn-square' ><FontAwesomeIcon icon={faGoogle} /></button>
+          <button className="btn btn-soft btn-square">
+            <FontAwesomeIcon icon={faGoogle} />
+          </button>
         </div>
       </form>
     </>
