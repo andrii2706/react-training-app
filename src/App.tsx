@@ -7,19 +7,19 @@ function App() {
   const sideNavItems = (
     <>
       <li>
-        <Link to="/home">Home</Link>
+        <Link to="/home" title="Home">Home</Link>
       </li>
       <li>
-        <Link to="/characters">Characters</Link>
+        <Link to="/characters" title="Characters">Characters</Link>
       </li>
       <li>
-        <Link to="/episodes">Developers</Link>
+        <Link to="/episodes" title="Episodes">Episodes</Link>
       </li>
       <li>
-        <Link to="/locations">Locations</Link>
+        <Link to="/locations" title="Locations">Locations</Link>
       </li>
       <li>
-        <Link to="/my-watch-list">My Watch list</Link>
+        <Link to="/my-watch-list" title="My Watch list">My Watch list</Link>
       </li>
     </>
   );
