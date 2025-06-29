@@ -42,7 +42,9 @@ export function NaviagtionBar({
             </div>
           )}
           <div className="mx-2 flex-1 px-2">
-            <Link to="/home" title='Home'>Rick And Morty</Link>
+            <Link to="/home" title="Home">
+              Rick And Morty
+            </Link>
           </div>
           {isLoggined && (
             <div className="flex-none">
@@ -95,13 +97,15 @@ export function NaviagtionBar({
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                 >
                   <li>
-                    <Link to="/profile" title='Profile' className="justify-between">
+                    <Link to="/profile" title="Profile" className="justify-between">
                       Profile
                       <span className="badge">New</span>
                     </Link>
                   </li>
                   <li>
-                    <Link to="/settings" title='Setting of Profile'>Settings</Link>
+                    <Link to="/settings" title="Setting of Profile">
+                      Settings
+                    </Link>
                   </li>
                   <li>
                     <button onClick={logoutUser}>
