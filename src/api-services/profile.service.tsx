@@ -1,2 +1,1 @@
-export const ProfileService = () => {
-}
+export const ProfileService = () => {};

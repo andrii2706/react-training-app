@@ -1,2 +1,1 @@
-export const WishListService = () => {
-}
+export const WishListService = () => {};

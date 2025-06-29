@@ -1,2 +1,1 @@
-export const EpisodesService = () => {
-}
+export const EpisodesService = () => {};
