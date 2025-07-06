@@ -1,16 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User } from 'firebase/auth';
+import { AuthState } from '../../shared/models/auth.interface';
 
-//@ts-ignore
-const initialState = [];
+
+const initialState: AuthState = {
+   user: null
+};
 
 const userData = createSlice({
   name: 'userData',
-  //@ts-ignore
   initialState,
   reducers: {
-    //@ts-ignore
-    userDataInfo: state => state.values,
+    setUser(state, action: PayloadAction<User>){
+      state.user = action.payload
+    },
+    clearUser(state){
+      state.user = null
+    }
   },
 });
+export const { setUser, clearUser } = userData.actions;
+
 
 export default userData.reducer;

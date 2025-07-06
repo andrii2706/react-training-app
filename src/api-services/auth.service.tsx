@@ -1,18 +1,23 @@
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, User } from 'firebase/auth';
 import { AuthApp } from '../firebase';
+import setUser from '../store/user-data/user-data';
+import { AppDispatch } from '../store/store';
 
-export const AuthService = () => {
-  const auth = AuthApp;
+
+
+const auth = AuthApp;
   const googleProvider = new GoogleAuthProvider();
 
-  async function signInWithCredentials() {}
-  async function signOutUser() {}
-  async function registerUser() {}
-  async function signIsWithGoogle() {
+ export async function signInWithCredentials() {}
+ export async function signOutUser() {}
+ export async function registerUser() {}
+ export async function signIsWithGoogle(dispatch: AppDispatch) {
+
     try {
-      await signInWithPopup(auth, googleProvider);
+     const result = await signInWithPopup(auth, googleProvider);
+     console.log(result)
+      // setUser(, dispatch)
     } catch (error) {
       console.log(error);
     }
   }
-};
