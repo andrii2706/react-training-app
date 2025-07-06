@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { SignInInterface } from '../../shared/models/authForm.inteface';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import {  signIsWithGoogle } from '../../api-services/auth.service';
+import { signIsWithGoogle } from '../../api-services/auth.service';
 import { useDispatch } from 'react-redux';
 
 export const AuthComponent = () => {
@@ -12,16 +12,14 @@ export const AuthComponent = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<SignInInterface>();
-    const dispatch = useDispatch()
-    
+  const dispatch = useDispatch();
 
   const onSignIn = (data: SignInInterface) => {
     console.log(data);
   };
   const googleSignIn = async () => {
-      await signIsWithGoogle(dispatch)
-  }
-
+    await signIsWithGoogle(dispatch);
+  };
 
   return (
     <>
@@ -44,14 +42,14 @@ export const AuthComponent = () => {
         {errors.password && <p>{errors.password.message}</p>}
       </form>
       <div className="flex justify-center items-center">
-          <button className="btn btn-soft">Register</button>
-          <button className="btn btn-soft mx-4" type="submit">
-            Sign In
-          </button>
-          <button onClick={googleSignIn} className="btn btn-soft btn-square">
-            <FontAwesomeIcon icon={faGoogle} />
-          </button>
-        </div>
+        <button className="btn btn-soft">Register</button>
+        <button className="btn btn-soft mx-4" type="submit">
+          Sign In
+        </button>
+        <button onClick={googleSignIn} className="btn btn-soft btn-square">
+          <FontAwesomeIcon icon={faGoogle} />
+        </button>
+      </div>
     </>
   );
 };

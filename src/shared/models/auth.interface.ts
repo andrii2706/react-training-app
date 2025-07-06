@@ -1,5 +1,5 @@
-import { User } from "firebase/auth";
+import { User } from 'firebase/auth';
 
 export interface AuthState {
-    user: User | null;
+  user: User | null;
 }
