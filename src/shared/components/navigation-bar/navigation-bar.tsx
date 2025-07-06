@@ -42,10 +42,15 @@ export function NaviagtionBar({
             </div>
           )}
           <div className="mx-2 flex-1 px-2">
+           {isLoggined && (
             <Link to="/home" title="Home">
               Rick And Morty
             </Link>
-          </div>
+          )}
+            {!isLoggined && (<Link to="/" title="Home">
+              Rick And Morty
+            </Link>)}
+            </div>
           {isLoggined && (
             <div className="flex-none">
               <div className="dropdown dropdown-end mr-3">
