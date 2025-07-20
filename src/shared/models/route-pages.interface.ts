@@ -1,5 +1,5 @@
 export interface RouterPages {
   isAllowed: boolean;
-  redirectTo: string;
+  redirectTo?: string;
   children: React.ReactNode;
 }

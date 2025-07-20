@@ -1,3 +1,4 @@
 export const HomeComponent = () => {
-  return <></>;
+  return <>
+  </>;
 };

@@ -24,6 +24,7 @@ export async function signIsWithGoogle(dispatch: AppDispatch) {
   try {
     const result = await signInWithPopup(auth, googleProvider);
     dispatch(setUser(result.user));
+    return result.user
   } catch (error) {
     console.log(error);
   }

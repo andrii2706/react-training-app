@@ -1,10 +1,12 @@
-import React from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SignInInterface } from '../../shared/models/authForm.inteface';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { signIsWithGoogle } from '../../api-services/auth.service';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { SnackBarComponent } from '../../shared/components/snackbar/snackBar.component';
 
 export const AuthComponent = () => {
   const {
@@ -13,12 +15,36 @@ export const AuthComponent = () => {
     formState: { errors },
   } = useForm<SignInInterface>();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [snackBarSuccess, showSnackBarSuccess] = useState(false);
+  const [snackBarError, showSnackBarError] = useState(false);
+  const [snackBarWarning, showSnackBarWarning] = useState(false);
 
+  
   const onSignIn = (data: SignInInterface) => {
     console.log(data);
   };
+
   const googleSignIn = async () => {
-    await signIsWithGoogle(dispatch);
+    await signIsWithGoogle(dispatch)
+      .then(successCase => {
+        if (successCase) {
+          localStorage.setItem("isUserLoggined", "true")
+          navigate("/home")
+          showSnackBarSuccess(true);
+           showSnackBarError(false);
+        } else {
+          localStorage.setItem("isUserLoggined", "false")
+          showSnackBarWarning(true);
+          showSnackBarError(false);
+          showSnackBarSuccess(false);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        showSnackBarError(true);
+        showSnackBarSuccess(false);
+      })
   };
 
   return (
@@ -49,6 +75,11 @@ export const AuthComponent = () => {
         <button onClick={googleSignIn} className="btn btn-soft btn-square">
           <FontAwesomeIcon icon={faGoogle} />
         </button>
+      </div>
+      <div>
+        {snackBarSuccess &&  <SnackBarComponent snackBarStatus='success' title='Success' description='You have been loggined Successfuly' />}
+        {snackBarError && <SnackBarComponent snackBarStatus='error' title='Opps!! we have an error' description='We have an error with login, please wait some time' />}
+        {snackBarWarning && <SnackBarComponent snackBarStatus='warning' title='Warning Issue' description='Opps!! Update page or contact with our support' />}
       </div>
     </>
   );

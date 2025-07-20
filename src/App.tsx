@@ -1,9 +1,14 @@
 import './App.scss';
 import { NaviagtionBar } from './shared/components/navigation-bar/navigation-bar';
-import { Link, BrowserRouter } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ApplicationRoutes } from './shared/components/routes/routes.component';
+import { useEffect } from 'react';
 
 function App() {
+  const navigate = useNavigate();
+  useEffect(() => {
+     localStorageCheck();
+  }, [])
   const sideNavItems = (
     <>
       <li>
@@ -35,17 +40,17 @@ function App() {
   );
   const localStorageCheck = () => {
     const isLoggined = localStorage.getItem('isUserLoggined');
+    if(isLoggined === "true"){
+      navigate("/home")
+    }
     return isLoggined ? isLoggined : localStorage.setItem('isUserLoggined', 'false');
   };
-  localStorageCheck();
   return (
-    <BrowserRouter>
       <NaviagtionBar routes={sideNavItems}>
         <div className="p-20 h-full">
           <ApplicationRoutes />
         </div>
       </NaviagtionBar>
-    </BrowserRouter>
   );
 }
 
