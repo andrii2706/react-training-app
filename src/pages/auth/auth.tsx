@@ -20,7 +20,6 @@ export const AuthComponent = () => {
   const [snackBarError, showSnackBarError] = useState(false);
   const [snackBarWarning, showSnackBarWarning] = useState(false);
 
-  
   const onSignIn = (data: SignInInterface) => {
     console.log(data);
   };
@@ -29,12 +28,12 @@ export const AuthComponent = () => {
     await signIsWithGoogle(dispatch)
       .then(successCase => {
         if (successCase) {
-          localStorage.setItem("isUserLoggined", "true")
-          navigate("/home")
+          localStorage.setItem('isUserLoggined', 'true');
+          navigate('/home');
           showSnackBarSuccess(true);
-           showSnackBarError(false);
+          showSnackBarError(false);
         } else {
-          localStorage.setItem("isUserLoggined", "false")
+          localStorage.setItem('isUserLoggined', 'false');
           showSnackBarWarning(true);
           showSnackBarError(false);
           showSnackBarSuccess(false);
@@ -44,7 +43,7 @@ export const AuthComponent = () => {
         console.error(error);
         showSnackBarError(true);
         showSnackBarSuccess(false);
-      })
+      });
   };
 
   return (
@@ -77,9 +76,27 @@ export const AuthComponent = () => {
         </button>
       </div>
       <div>
-        {snackBarSuccess &&  <SnackBarComponent snackBarStatus='success' title='Success' description='You have been loggined Successfuly' />}
-        {snackBarError && <SnackBarComponent snackBarStatus='error' title='Opps!! we have an error' description='We have an error with login, please wait some time' />}
-        {snackBarWarning && <SnackBarComponent snackBarStatus='warning' title='Warning Issue' description='Opps!! Update page or contact with our support' />}
+        {snackBarSuccess && (
+          <SnackBarComponent
+            snackBarStatus="success"
+            title="Success"
+            description="You have been loggined Successfuly"
+          />
+        )}
+        {snackBarError && (
+          <SnackBarComponent
+            snackBarStatus="error"
+            title="Opps!! we have an error"
+            description="We have an error with login, please wait some time"
+          />
+        )}
+        {snackBarWarning && (
+          <SnackBarComponent
+            snackBarStatus="warning"
+            title="Warning Issue"
+            description="Opps!! Update page or contact with our support"
+          />
+        )}
       </div>
     </>
   );

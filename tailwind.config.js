@@ -8,14 +8,10 @@ module.exports = {
     // Or if using `src` directory:
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  safelist: [
-    'alert-success',
-    'alert-error',
-    'alert-warning',
-  ],
+  safelist: ['alert-success', 'alert-error', 'alert-warning'],
   theme: {
     extend: {
-       animation: {
+      animation: {
         'fade-in-down': 'fadeInDown 0.3s ease-out',
       },
       keyframes: {

@@ -7,8 +7,8 @@ import { useEffect } from 'react';
 function App() {
   const navigate = useNavigate();
   useEffect(() => {
-     localStorageCheck();
-  }, [])
+    localStorageCheck();
+  }, []);
   const sideNavItems = (
     <>
       <li>
@@ -40,17 +40,17 @@ function App() {
   );
   const localStorageCheck = () => {
     const isLoggined = localStorage.getItem('isUserLoggined');
-    if(isLoggined === "true"){
-      navigate("/home")
+    if (isLoggined === 'true') {
+      navigate('/home');
     }
     return isLoggined ? isLoggined : localStorage.setItem('isUserLoggined', 'false');
   };
   return (
-      <NaviagtionBar routes={sideNavItems}>
-        <div className="p-20 h-full">
-          <ApplicationRoutes />
-        </div>
-      </NaviagtionBar>
+    <NaviagtionBar routes={sideNavItems}>
+      <div className="p-20 h-full">
+        <ApplicationRoutes />
+      </div>
+    </NaviagtionBar>
   );
 }
 
