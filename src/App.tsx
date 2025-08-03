@@ -6,6 +6,13 @@ import { useEffect } from 'react';
 
 function App() {
   const navigate = useNavigate();
+  const localStorageCheck = () => {
+    const isLoggined = localStorage.getItem('isUserLoggined');
+    if (isLoggined === 'true') {
+      navigate('/home');
+    }
+    return isLoggined ? isLoggined : localStorage.setItem('isUserLoggined', 'false');
+  };
   useEffect(() => {
     localStorageCheck();
   }, []);
@@ -38,13 +45,6 @@ function App() {
       </li>
     </>
   );
-  const localStorageCheck = () => {
-    const isLoggined = localStorage.getItem('isUserLoggined');
-    if (isLoggined === 'true') {
-      navigate('/home');
-    }
-    return isLoggined ? isLoggined : localStorage.setItem('isUserLoggined', 'false');
-  };
   return (
     <NaviagtionBar routes={sideNavItems}>
       <div className="p-20 h-full">
