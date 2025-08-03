@@ -1,5 +1,10 @@
-const gamesApiRaw = 'https://rickandmortyapi.com/api';
+const apiRaw = 'https://rickandmortyapi.com/api';
 
-export function getGamesFromBe(options: any) {
-  return fetch(`${gamesApiRaw}/games`, options);
+export function getCharactersFromBe() {
+  return fetch(`${apiRaw}/character`).then(response => response.json());
+}
+
+export const getCharaterFromBe = (id: number) =>{
+  return fetch(`${apiRaw}/character/${id}`).then(response => response.json());
+
 }
