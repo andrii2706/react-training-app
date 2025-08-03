@@ -7,19 +7,79 @@ import { HomeComponent } from '../../../pages/home/home.component';
 import { EpisodesComponent } from '../../../pages/episodes/episodes.component';
 import { LocationComponent } from '../../../pages/locations/locations.component';
 import { MyWishListComponent } from '../../../pages/my-wish-list/my-wish-list.component';
+import ProtectPrivatePages from '../../guards/protect-private-pages/protect-private-pages.guard';
 
 export const ApplicationRoutes = () => {
+  const isLoggined = () => {
+    const status = localStorage.getItem('isUserLoggined');
+    const isLoggined = JSON.parse(status ? status : '');
+    return isLoggined ? isLoggined : localStorage.setItem('isUserLoggined', 'false');
+  };
+
+  isLoggined();
   return (
     <>
       <Routes>
         <Route path="/" element={<AuthComponent />} />
-        <Route path="/characters" element={<CharactesComponent />} />
-        <Route path="/profile" element={<ProfileComponent />} />
-        <Route path="/settings" element={<SettingsComponent />} />
-        <Route path="/home" element={<HomeComponent />} />
-        <Route path="/episodes" element={<EpisodesComponent />} />
-        <Route path="/locations" element={<LocationComponent />} />
-        <Route path="/wish-list" element={<MyWishListComponent />} />
+        <Route
+          path="/characters"
+          element={
+            <ProtectPrivatePages isAllowed={isLoggined()}>
+              <CharactesComponent />
+            </ProtectPrivatePages>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectPrivatePages isAllowed={isLoggined()}>
+              <ProfileComponent />
+            </ProtectPrivatePages>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectPrivatePages isAllowed={isLoggined()}>
+              <SettingsComponent />
+            </ProtectPrivatePages>
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <ProtectPrivatePages isAllowed={isLoggined()}>
+              <HomeComponent />
+            </ProtectPrivatePages>
+          }
+        />
+        <Route
+          path="/episodes"
+          element={
+            <ProtectPrivatePages isAllowed={isLoggined()}>
+              {' '}
+              <EpisodesComponent />
+            </ProtectPrivatePages>
+          }
+        />
+        <Route
+          path="/locations"
+          element={
+            <ProtectPrivatePages isAllowed={isLoggined()}>
+              {' '}
+              <LocationComponent />
+            </ProtectPrivatePages>
+          }
+        />
+        <Route
+          path="/wish-list"
+          element={
+            <ProtectPrivatePages isAllowed={isLoggined()}>
+              {' '}
+              <MyWishListComponent />
+            </ProtectPrivatePages>
+          }
+        />
       </Routes>
     </>
   );
