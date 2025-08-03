@@ -61,9 +61,6 @@ export const HomeComponent = () => {
         setShowCharacters(true);
         break;
     }
-    console.log(showCharaters);
-    console.log(showEpisodes);
-    console.log(showLocations);
   };
 
   useEffect(() => {
