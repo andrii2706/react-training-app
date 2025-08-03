@@ -1,4 +1,3 @@
-
 const apiRaw = 'https://rickandmortyapi.com/api';
 
 export function getCharactersFromBe() {
