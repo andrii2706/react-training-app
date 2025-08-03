@@ -7,6 +7,7 @@ import { PaginationInfoInterface } from '../../shared/models/array.interface';
 import { CharactesInterface } from '../../shared/models/character.interface';
 import { EpisodesInterface } from '../../shared/models/episodes.interface';
 import { LocationInterface } from '../../shared/models/location.interface';
+import { getLocations } from '../../api-services/location.service';
 
 export const HomeComponent = () => {
   const [showCharaters, setShowCharacters] = useState(true);
@@ -32,6 +33,17 @@ export const HomeComponent = () => {
     getEpisodes()
       .then(data => {
         setEpisodes(data.results);
+        setPaginationInfo(data.info);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  const loadingData = () => {
+    getLocations()
+      .then(data => {
+        setLocations(data.results);
         setPaginationInfo(data.info);
       })
       .catch(error => {
@@ -66,6 +78,7 @@ export const HomeComponent = () => {
   useEffect(() => {
     charactersData();
     episodesData();
+    loadingData();
   }, []);
 
   return (

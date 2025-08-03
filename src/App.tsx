@@ -2,13 +2,24 @@ import './App.scss';
 import { NaviagtionBar } from './shared/components/navigation-bar/navigation-bar';
 import { Link, useNavigate } from 'react-router-dom';
 import { ApplicationRoutes } from './shared/components/routes/routes.component';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 function App() {
   const navigate = useNavigate();
+
+  const localStorageCheck = useCallback(() => {
+    const isLoggined = localStorage.getItem('isUserLoggined');
+    if (isLoggined === 'true') {
+      navigate('/home');
+    }
+    if (!isLoggined) {
+      localStorage.setItem('isUserLoggined', 'false');
+    }
+  }, [navigate]);
+
   useEffect(() => {
     localStorageCheck();
-  }, []);
+  }, [localStorageCheck]);
   const sideNavItems = (
     <>
       <li>
@@ -38,13 +49,6 @@ function App() {
       </li>
     </>
   );
-  const localStorageCheck = () => {
-    const isLoggined = localStorage.getItem('isUserLoggined');
-    if (isLoggined === 'true') {
-      navigate('/home');
-    }
-    return isLoggined ? isLoggined : localStorage.setItem('isUserLoggined', 'false');
-  };
   return (
     <NaviagtionBar routes={sideNavItems}>
       <div className="p-20 h-full">
