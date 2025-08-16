@@ -33,7 +33,8 @@ export const EpisodesComponent = () => {
 
   useEffect(() => {
     episodesData();
-  }, []);
+  });
+
   return (
     <section>
       {showLoader && (

@@ -114,7 +114,7 @@ export const HomeComponent = () => {
     charactersData();
     episodesData();
     loadingData();
-  }, []);
+  });
 
   return (
     <>
