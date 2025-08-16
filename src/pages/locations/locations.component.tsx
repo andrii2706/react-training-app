@@ -33,6 +33,7 @@ export const LocationComponent = () => {
 
   useEffect(() => {
     locationsData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

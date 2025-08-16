@@ -114,6 +114,7 @@ export const HomeComponent = () => {
     charactersData();
     episodesData();
     loadingData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

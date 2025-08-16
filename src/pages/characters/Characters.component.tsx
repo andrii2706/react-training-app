@@ -33,6 +33,7 @@ export const CharactesComponent = () => {
 
   useEffect(() => {
     charactersData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
