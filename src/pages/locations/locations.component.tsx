@@ -33,7 +33,7 @@ export const LocationComponent = () => {
 
   useEffect(() => {
     locationsData();
-  }, []);
+  });
 
   return (
     <section>

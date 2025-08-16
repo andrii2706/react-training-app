@@ -33,7 +33,7 @@ export const CharactesComponent = () => {
 
   useEffect(() => {
     charactersData();
-  }, []);
+  });
 
   return (
     <section>

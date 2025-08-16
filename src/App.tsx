@@ -2,7 +2,7 @@ import './App.scss';
 import { NaviagtionBar } from './shared/components/navigation-bar/navigation-bar';
 import { Link, useNavigate } from 'react-router-dom';
 import { ApplicationRoutes } from './shared/components/routes/routes.component';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 function App() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function App() {
     if (!isLoggined) {
       localStorage.setItem('isUserLoggined', 'false');
     }
-  }, []);
+  });
 
   const sideNavItems = (
     <>
