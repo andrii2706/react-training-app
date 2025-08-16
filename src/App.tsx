@@ -7,7 +7,7 @@ import { useCallback, useEffect } from 'react';
 function App() {
   const navigate = useNavigate();
 
-  const localStorageCheck = useCallback(() => {
+  useEffect(() => {
     const isLoggined = localStorage.getItem('isUserLoggined');
     if (isLoggined === 'true') {
       navigate('/home');
@@ -15,11 +15,8 @@ function App() {
     if (!isLoggined) {
       localStorage.setItem('isUserLoggined', 'false');
     }
-  }, [navigate]);
+  }, []);
 
-  useEffect(() => {
-    localStorageCheck();
-  }, [localStorageCheck]);
   const sideNavItems = (
     <>
       <li>
