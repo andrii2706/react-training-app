@@ -1,7 +1,7 @@
 const apiRaw = 'https://rickandmortyapi.com/api';
 
-export const getLocations = () => {
-  return fetch(`${apiRaw}/location`).then(response => response.json());
+export const getLocations = (page: number) => {
+  return fetch(`${apiRaw}/location?page=${page}`).then(response => response.json());
 };
 
 export const getLocation = (id: number) => {

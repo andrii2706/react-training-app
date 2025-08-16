@@ -16,38 +16,62 @@ export const HomeComponent = () => {
   const [characters, setCharacters] = useState([] as CharactesInterface[]);
   const [episodes, setEpisodes] = useState([] as EpisodesInterface[]);
   const [locations, setLocations] = useState([] as LocationInterface[]);
-  const [paginationInfo, setPaginationInfo] = useState({} as PaginationInfoInterface);
+  const [paginationCharacterInfo, setPaginationCharacterInfo] = useState(
+    {} as PaginationInfoInterface
+  );
+  const [paginationEpisodesInfo, setPaginationEpisodesInfo] = useState(
+    {} as PaginationInfoInterface
+  );
+  const [paginationLocationsInfo, setPaginationLocationsInfo] = useState(
+    {} as PaginationInfoInterface
+  );
+  const [pageCharacters, setPageCharacters] = useState(1);
+  const [pageEpisodes, setPageEpisodes] = useState(1);
+  const [pageLocations, setPageLocations] = useState(1);
+  const [showLoader, setLoader] = useState(false);
 
   const charactersData = () => {
-    getCharactersFromBe()
+    setLoader(true);
+    getCharactersFromBe(pageCharacters)
       .then(data => {
         setCharacters(data.results);
-        setPaginationInfo(data.info);
+        setPaginationCharacterInfo(data.info);
       })
       .catch(error => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoader(false);
       });
   };
 
   const episodesData = () => {
-    getEpisodes()
+    setLoader(true);
+    getEpisodes(pageEpisodes)
       .then(data => {
         setEpisodes(data.results);
-        setPaginationInfo(data.info);
+        setPaginationEpisodesInfo(data.info);
       })
       .catch(error => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoader(false);
       });
   };
 
   const loadingData = () => {
-    getLocations()
+    setLoader(true);
+    getLocations(pageLocations)
       .then(data => {
         setLocations(data.results);
-        setPaginationInfo(data.info);
+        setPaginationLocationsInfo(data.info);
       })
       .catch(error => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoader(false);
       });
   };
 
@@ -75,6 +99,17 @@ export const HomeComponent = () => {
     }
   };
 
+  const goToPageCharacters = (selectedItem: { selected: number }) => {
+    setPageCharacters(selectedItem.selected + 1);
+    charactersData();
+  };
+  const goToPageEpisodes = (selectedItem: { selected: number }) => {
+    setPageEpisodes(selectedItem.selected + 1);
+  };
+  const goToPageLocations = (selectedItem: { selected: number }) => {
+    setPageLocations(selectedItem.selected + 1);
+  };
+
   useEffect(() => {
     charactersData();
     episodesData();
@@ -99,35 +134,90 @@ export const HomeComponent = () => {
           </button>
         </div>
         <div>
+          {showLoader && (
+            <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-50">
+              <span className="loading loading-dots loading-xl"></span>
+            </div>
+          )}
+
           {showCharaters && (
-            <div className="grid justify-items-center grid-cols-3 gap-3 w-full">
-              {characters.map(character => (
-                <CardComponent dataOfItem={character} dataType={'characters'} />
-              ))}
+            <div>
+              <div className="grid justify-items-center grid-cols-3 gap-3 w-full">
+                {characters.map((character, index) => (
+                  <CardComponent key={index} dataOfItem={character} dataType={'characters'} />
+                ))}
+              </div>
+              <div className="my-10">
+                <ReactPaginate
+                  breakLabel="..."
+                  nextLabel="next >"
+                  pageRangeDisplayed={5}
+                  pageCount={paginationCharacterInfo.pages}
+                  onPageChange={goToPageCharacters}
+                  previousLabel="< previous"
+                  renderOnZeroPageCount={null}
+                  containerClassName="flex justify-center space-x-2 pt-4"
+                  pageClassName="btn btn-sm"
+                  activeClassName="btn-primary"
+                  previousClassName="btn btn-sm"
+                  nextClassName="btn btn-sm"
+                  breakClassName="btn btn-ghost btn-sm"
+                />
+              </div>
             </div>
           )}
           {showEpisodes && (
-            <div className="grid justify-items-center grid-cols-3 gap-3 w-full">
-              {episodes.map(episodes => (
-                <CardComponent dataOfItem={episodes} dataType={'episodes'} />
-              ))}
+            <div>
+              <div className="grid justify-items-center grid-cols-3 gap-3 w-full">
+                {episodes.map((episodes, index) => (
+                  <CardComponent key={index} dataOfItem={episodes} dataType={'episodes'} />
+                ))}
+              </div>
+              <div className="my-10">
+                <ReactPaginate
+                  breakLabel="..."
+                  nextLabel="next >"
+                  pageRangeDisplayed={5}
+                  pageCount={paginationEpisodesInfo.pages}
+                  onPageChange={goToPageEpisodes}
+                  previousLabel="< previous"
+                  renderOnZeroPageCount={null}
+                  containerClassName="flex justify-center space-x-2 pt-4"
+                  pageClassName="btn btn-sm"
+                  activeClassName="btn-primary"
+                  previousClassName="btn btn-sm"
+                  nextClassName="btn btn-sm"
+                  breakClassName="btn btn-ghost btn-sm"
+                />
+              </div>
             </div>
           )}
           {showLocations && (
-            <div className="grid justify-items-center grid-cols-3 gap-3 w-full">
-              {locations.map(locations => (
-                <CardComponent dataOfItem={locations} dataType={'locations'} />
-              ))}
+            <div>
+              <div className="grid justify-items-center grid-cols-3 gap-3 w-full">
+                {locations.map((locations, index) => (
+                  <CardComponent key={index} dataOfItem={locations} dataType={'locations'} />
+                ))}
+              </div>
+              <div className="my-10">
+                <ReactPaginate
+                  breakLabel="..."
+                  nextLabel="next >"
+                  pageRangeDisplayed={5}
+                  pageCount={paginationLocationsInfo.pages}
+                  onPageChange={goToPageLocations}
+                  previousLabel="< previous"
+                  renderOnZeroPageCount={null}
+                  containerClassName="flex justify-center space-x-2 pt-4"
+                  pageClassName="btn btn-sm"
+                  activeClassName="btn-primary"
+                  previousClassName="btn btn-sm"
+                  nextClassName="btn btn-sm"
+                  breakClassName="btn btn-ghost btn-sm"
+                />
+              </div>
             </div>
           )}
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="next >"
-            pageRangeDisplayed={5}
-            pageCount={paginationInfo.pages}
-            previousLabel="< previous"
-            renderOnZeroPageCount={null}
-          />
         </div>
       </section>
     </>
