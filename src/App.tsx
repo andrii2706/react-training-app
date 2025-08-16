@@ -15,7 +15,8 @@ function App() {
     if (!isLoggined) {
       localStorage.setItem('isUserLoggined', 'false');
     }
-  });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const sideNavItems = (
     <>
