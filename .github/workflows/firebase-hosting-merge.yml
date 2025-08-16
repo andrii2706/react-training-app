@@ -35,7 +35,7 @@ jobs:
 
       # 6️⃣ Деплой на Firebase Hosting
       - name: Deploy to Firebase Hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
+        uses: npx firebase deploy --only hosting 
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RICK_AND_MORTY_5895E }}

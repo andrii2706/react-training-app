@@ -137,7 +137,7 @@ export const HomeComponent = () => {
         <div>
           {showLoader && (
             <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-50">
-              <span className="loading loading-dots loading-xl"></span>
+              <span className="loading loading-dots loading-xl text-black"></span>
             </div>
           )}
 
