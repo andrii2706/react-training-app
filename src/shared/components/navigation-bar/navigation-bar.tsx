@@ -1,11 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export function NaviagtionBar({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function NaviagtionBar({ children }: { children: React.ReactNode }) {
   const isLoggined = JSON.parse(localStorage.getItem('isUserLoggined') || 'false');
   const logoutUser = () => {
     localStorage.setItem('isUserLoggined', 'false');
@@ -28,11 +24,19 @@ export function NaviagtionBar({
               </Link>
             )}
           </div>
-          {isLoggined && (<div>
-                <Link to="/characters" title="Characters">Characters</Link>
-                <Link className='mx-5' to="/episodes" title="Episodes">Episodes</Link>
-                <Link to="/locations" title="Locations">Locations</Link>
-              </div>)}
+          {isLoggined && (
+            <div>
+              <Link to="/characters" title="Characters">
+                Characters
+              </Link>
+              <Link className="mx-5" to="/episodes" title="Episodes">
+                Episodes
+              </Link>
+              <Link to="/locations" title="Locations">
+                Locations
+              </Link>
+            </div>
+          )}
           {isLoggined && (
             <div className="flex-none">
               <div className="dropdown dropdown-end mr-3">

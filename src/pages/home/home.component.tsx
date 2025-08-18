@@ -30,8 +30,6 @@ export const HomeComponent = () => {
   const [pageLocations, setPageLocations] = useState(1);
   const [showLoader, setLoader] = useState(false);
 
-  
-
   const changeCardsForPages = (typeOfCards: string) => {
     switch (typeOfCards) {
       case 'episodes':
@@ -78,13 +76,13 @@ export const HomeComponent = () => {
         </div>
         <div className="flex justify-center items-center mt-3 mb-5">
           <button className="btn btn-soft" onClick={() => changeCardsForPages('chracters')}>
-           Selected Characters
+            Selected Characters
           </button>
           <button className="btn btn-soft mx-2" onClick={() => changeCardsForPages('episodes')}>
             Selected Episodes
           </button>
           <button className="btn btn-soft" onClick={() => changeCardsForPages('locations')}>
-           Selected Locations
+            Selected Locations
           </button>
         </div>
         <div>
@@ -101,24 +99,25 @@ export const HomeComponent = () => {
                   <CardComponent key={index} dataOfItem={character} dataType={'characters'} />
                 ))}
               </div>
-              {characters.length > 10 && <div className="my-10">
-                <ReactPaginate
-                  breakLabel="..."
-                  nextLabel="next >"
-                  pageRangeDisplayed={5}
-                  pageCount={paginationCharacterInfo.pages}
-                  onPageChange={goToPageCharacters}
-                  previousLabel="< previous"
-                  renderOnZeroPageCount={null}
-                  containerClassName="flex justify-center space-x-2 pt-4"
-                  pageClassName="btn btn-sm"
-                  activeClassName="btn-primary"
-                  previousClassName="btn btn-sm"
-                  nextClassName="btn btn-sm"
-                  breakClassName="btn btn-ghost btn-sm"
-                />
-              </div>}
-              
+              {characters.length > 10 && (
+                <div className="my-10">
+                  <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="next >"
+                    pageRangeDisplayed={5}
+                    pageCount={paginationCharacterInfo.pages}
+                    onPageChange={goToPageCharacters}
+                    previousLabel="< previous"
+                    renderOnZeroPageCount={null}
+                    containerClassName="flex justify-center space-x-2 pt-4"
+                    pageClassName="btn btn-sm"
+                    activeClassName="btn-primary"
+                    previousClassName="btn btn-sm"
+                    nextClassName="btn btn-sm"
+                    breakClassName="btn btn-ghost btn-sm"
+                  />
+                </div>
+              )}
             </div>
           )}
           {showEpisodes && (
@@ -128,23 +127,25 @@ export const HomeComponent = () => {
                   <CardComponent key={index} dataOfItem={episodes} dataType={'episodes'} />
                 ))}
               </div>
-              {characters.length > 10 && <div className="my-10">
-                <ReactPaginate
-                  breakLabel="..."
-                  nextLabel="next >"
-                  pageRangeDisplayed={5}
-                  pageCount={paginationEpisodesInfo.pages}
-                  onPageChange={goToPageEpisodes}
-                  previousLabel="< previous"
-                  renderOnZeroPageCount={null}
-                  containerClassName="flex justify-center space-x-2 pt-4"
-                  pageClassName="btn btn-sm"
-                  activeClassName="btn-primary"
-                  previousClassName="btn btn-sm"
-                  nextClassName="btn btn-sm"
-                  breakClassName="btn btn-ghost btn-sm"
-                />
-              </div> }
+              {characters.length > 10 && (
+                <div className="my-10">
+                  <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="next >"
+                    pageRangeDisplayed={5}
+                    pageCount={paginationEpisodesInfo.pages}
+                    onPageChange={goToPageEpisodes}
+                    previousLabel="< previous"
+                    renderOnZeroPageCount={null}
+                    containerClassName="flex justify-center space-x-2 pt-4"
+                    pageClassName="btn btn-sm"
+                    activeClassName="btn-primary"
+                    previousClassName="btn btn-sm"
+                    nextClassName="btn btn-sm"
+                    breakClassName="btn btn-ghost btn-sm"
+                  />
+                </div>
+              )}
             </div>
           )}
           {showLocations && (
@@ -154,23 +155,25 @@ export const HomeComponent = () => {
                   <CardComponent key={index} dataOfItem={locations} dataType={'locations'} />
                 ))}
               </div>
-             {characters.length > 10 && <div className="my-10">
-                <ReactPaginate
-                  breakLabel="..."
-                  nextLabel="next >"
-                  pageRangeDisplayed={5}
-                  pageCount={paginationLocationsInfo.pages}
-                  onPageChange={goToPageLocations}
-                  previousLabel="< previous"
-                  renderOnZeroPageCount={null}
-                  containerClassName="flex justify-center space-x-2 pt-4"
-                  pageClassName="btn btn-sm"
-                  activeClassName="btn-primary"
-                  previousClassName="btn btn-sm"
-                  nextClassName="btn btn-sm"
-                  breakClassName="btn btn-ghost btn-sm"
-                />
-              </div>}
+              {characters.length > 10 && (
+                <div className="my-10">
+                  <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="next >"
+                    pageRangeDisplayed={5}
+                    pageCount={paginationLocationsInfo.pages}
+                    onPageChange={goToPageLocations}
+                    previousLabel="< previous"
+                    renderOnZeroPageCount={null}
+                    containerClassName="flex justify-center space-x-2 pt-4"
+                    pageClassName="btn btn-sm"
+                    activeClassName="btn-primary"
+                    previousClassName="btn btn-sm"
+                    nextClassName="btn btn-sm"
+                    breakClassName="btn btn-ghost btn-sm"
+                  />
+                </div>
+              )}
             </div>
           )}
         </div>

@@ -3,19 +3,19 @@ import { PaginationInfoInterface } from '../../shared/models/array.interface';
 import { EpisodesInterface } from '../../shared/models/episodes.interface';
 import { InitiaEpisodesStateInterface } from '../../shared/models/store.interface';
 
-const initialState:InitiaEpisodesStateInterface = {
+const initialState: InitiaEpisodesStateInterface = {
   episodes: [],
-  paginationInfo: null
+  paginationInfo: null,
 };
 
 const episodesData = createSlice({
   name: 'episodesData',
   initialState,
   reducers: {
-      setEpisodesStore(state, action: PayloadAction<EpisodesInterface[]>) {
+    setEpisodesStore(state, action: PayloadAction<EpisodesInterface[]>) {
       state.episodes = action.payload;
     },
-     setPaginationInfoStore(state, action: PayloadAction<PaginationInfoInterface>) {
+    setPaginationInfoStore(state, action: PayloadAction<PaginationInfoInterface>) {
       state.paginationInfo = action.payload;
     },
   },

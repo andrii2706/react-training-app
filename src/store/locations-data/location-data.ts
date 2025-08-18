@@ -3,9 +3,9 @@ import { InitialLocationsStateInterface } from '../../shared/models/store.interf
 import { LocationInterface } from '../../shared/models/location.interface';
 import { PaginationInfoInterface } from '../../shared/models/array.interface';
 
-const initialState:InitialLocationsStateInterface = {
+const initialState: InitialLocationsStateInterface = {
   locations: [],
-  paginationInfo: null
+  paginationInfo: null,
 };
 
 const locationsData = createSlice({
@@ -15,7 +15,7 @@ const locationsData = createSlice({
     setLocationsStore(state, action: PayloadAction<LocationInterface[]>) {
       state.locations = action.payload;
     },
-     setPaginationInfoStore(state, action: PayloadAction<PaginationInfoInterface>) {
+    setPaginationInfoStore(state, action: PayloadAction<PaginationInfoInterface>) {
       state.paginationInfo = action.payload;
     },
   },

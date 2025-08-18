@@ -16,8 +16,8 @@ export const CardComponent = ({ dataOfItem, dataType }: cardDataType) => {
   const navigation = useNavigate();
 
   const redirectToCharacters = () => {
-    navigation(`/characters/${dataOfItem.id}`)
-  }
+    navigation(`/characters/${dataOfItem.id}`);
+  };
 
   return (
     <>
@@ -32,7 +32,9 @@ export const CardComponent = ({ dataOfItem, dataType }: cardDataType) => {
             <p>Species - {characterSpecies}</p>
             <p>Gender - {characterGender}</p>
             <div className="card-actions justify-end">
-              <button className="btn btn-primary" onClick={redirectToCharacters}>Details</button>
+              <button className="btn btn-primary" onClick={redirectToCharacters}>
+                Details
+              </button>
             </div>
           </div>
         </div>

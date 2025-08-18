@@ -12,13 +12,13 @@ import { CharactersDetailsComponent } from '../../../pages/characters/character-
 
 export const ApplicationRoutes = () => {
   const isLoggined = () => {
-  const status = localStorage.getItem('isUserLoggined');
-  if (status) {
-    return JSON.parse(status);
-  }
-  localStorage.setItem('isUserLoggined', 'false');
-  return false;
-};;
+    const status = localStorage.getItem('isUserLoggined');
+    if (status) {
+      return JSON.parse(status);
+    }
+    localStorage.setItem('isUserLoggined', 'false');
+    return false;
+  };
 
   isLoggined();
   return (
@@ -88,11 +88,10 @@ export const ApplicationRoutes = () => {
           path="/characters/:id"
           element={
             <ProtectPrivatePages isAllowed={isLoggined()}>
-                           <CharactersDetailsComponent/>
+              <CharactersDetailsComponent />
             </ProtectPrivatePages>
           }
         />
-        
       </Routes>
     </>
   );
