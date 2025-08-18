@@ -30,50 +30,7 @@ export const HomeComponent = () => {
   const [pageLocations, setPageLocations] = useState(1);
   const [showLoader, setLoader] = useState(false);
 
-  const charactersData = () => {
-    setLoader(true);
-    getCharactersFromBe(pageCharacters)
-      .then(data => {
-        setCharacters(data.results);
-        setPaginationCharacterInfo(data.info);
-      })
-      .catch(error => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoader(false);
-      });
-  };
-
-  const episodesData = () => {
-    setLoader(true);
-    getEpisodes(pageEpisodes)
-      .then(data => {
-        setEpisodes(data.results);
-        setPaginationEpisodesInfo(data.info);
-      })
-      .catch(error => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoader(false);
-      });
-  };
-
-  const loadingData = () => {
-    setLoader(true);
-    getLocations(pageLocations)
-      .then(data => {
-        setLocations(data.results);
-        setPaginationLocationsInfo(data.info);
-      })
-      .catch(error => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoader(false);
-      });
-  };
+  
 
   const changeCardsForPages = (typeOfCards: string) => {
     switch (typeOfCards) {
@@ -101,7 +58,6 @@ export const HomeComponent = () => {
 
   const goToPageCharacters = (selectedItem: { selected: number }) => {
     setPageCharacters(selectedItem.selected + 1);
-    charactersData();
   };
   const goToPageEpisodes = (selectedItem: { selected: number }) => {
     setPageEpisodes(selectedItem.selected + 1);
@@ -111,9 +67,6 @@ export const HomeComponent = () => {
   };
 
   useEffect(() => {
-    charactersData();
-    episodesData();
-    loadingData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -125,13 +78,13 @@ export const HomeComponent = () => {
         </div>
         <div className="flex justify-center items-center mt-3 mb-5">
           <button className="btn btn-soft" onClick={() => changeCardsForPages('chracters')}>
-            Characters
+           Selected Characters
           </button>
           <button className="btn btn-soft mx-2" onClick={() => changeCardsForPages('episodes')}>
-            Episodes
+            Selected Episodes
           </button>
           <button className="btn btn-soft" onClick={() => changeCardsForPages('locations')}>
-            Locations
+           Selected Locations
           </button>
         </div>
         <div>
@@ -143,12 +96,12 @@ export const HomeComponent = () => {
 
           {showCharaters && (
             <div>
-              <div className="grid justify-items-center grid-cols-3 gap-3 w-full">
+              <div className="grid justify-items-center small-desktop:grid-cols-2 2xl:grid-cols-3 gap-3 w-full">
                 {characters.map((character, index) => (
                   <CardComponent key={index} dataOfItem={character} dataType={'characters'} />
                 ))}
               </div>
-              <div className="my-10">
+              {characters.length > 10 && <div className="my-10">
                 <ReactPaginate
                   breakLabel="..."
                   nextLabel="next >"
@@ -164,7 +117,8 @@ export const HomeComponent = () => {
                   nextClassName="btn btn-sm"
                   breakClassName="btn btn-ghost btn-sm"
                 />
-              </div>
+              </div>}
+              
             </div>
           )}
           {showEpisodes && (
@@ -174,7 +128,7 @@ export const HomeComponent = () => {
                   <CardComponent key={index} dataOfItem={episodes} dataType={'episodes'} />
                 ))}
               </div>
-              <div className="my-10">
+              {characters.length > 10 && <div className="my-10">
                 <ReactPaginate
                   breakLabel="..."
                   nextLabel="next >"
@@ -190,7 +144,7 @@ export const HomeComponent = () => {
                   nextClassName="btn btn-sm"
                   breakClassName="btn btn-ghost btn-sm"
                 />
-              </div>
+              </div> }
             </div>
           )}
           {showLocations && (
@@ -200,7 +154,7 @@ export const HomeComponent = () => {
                   <CardComponent key={index} dataOfItem={locations} dataType={'locations'} />
                 ))}
               </div>
-              <div className="my-10">
+             {characters.length > 10 && <div className="my-10">
                 <ReactPaginate
                   breakLabel="..."
                   nextLabel="next >"
@@ -216,7 +170,7 @@ export const HomeComponent = () => {
                   nextClassName="btn btn-sm"
                   breakClassName="btn btn-ghost btn-sm"
                 />
-              </div>
+              </div>}
             </div>
           )}
         </div>

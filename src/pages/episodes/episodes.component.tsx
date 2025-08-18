@@ -43,7 +43,7 @@ export const EpisodesComponent = () => {
           <span className="loading loading-dots loading-xl"></span>
         </div>
       )}
-      <div className="grid justify-items-center grid-cols-3 gap-3 w-full">
+      <div className="grid justify-items-center small-desktop:grid-cols-2 2xl:grid-cols-3 gap-3 w-full">
         {episodes.map((episodes, index) => (
           <CardComponent key={index} dataOfItem={episodes} dataType={'episodes'} />
         ))}

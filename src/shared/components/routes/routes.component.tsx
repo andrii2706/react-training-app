@@ -8,13 +8,17 @@ import { EpisodesComponent } from '../../../pages/episodes/episodes.component';
 import { LocationComponent } from '../../../pages/locations/locations.component';
 import { MyWishListComponent } from '../../../pages/my-wish-list/my-wish-list.component';
 import ProtectPrivatePages from '../../guards/protect-private-pages/protect-private-pages.guard';
+import { CharactersDetailsComponent } from '../../../pages/characters/character-datails/Characters-Details.component';
 
 export const ApplicationRoutes = () => {
   const isLoggined = () => {
-    const status = localStorage.getItem('isUserLoggined');
-    const isLoggined = JSON.parse(status ? status : '');
-    return isLoggined ? isLoggined : localStorage.setItem('isUserLoggined', 'false');
-  };
+  const status = localStorage.getItem('isUserLoggined');
+  if (status) {
+    return JSON.parse(status);
+  }
+  localStorage.setItem('isUserLoggined', 'false');
+  return false;
+};;
 
   isLoggined();
   return (
@@ -80,6 +84,15 @@ export const ApplicationRoutes = () => {
             </ProtectPrivatePages>
           }
         />
+        <Route
+          path="/characters/:id"
+          element={
+            <ProtectPrivatePages isAllowed={isLoggined()}>
+                           <CharactersDetailsComponent/>
+            </ProtectPrivatePages>
+          }
+        />
+        
       </Routes>
     </>
   );

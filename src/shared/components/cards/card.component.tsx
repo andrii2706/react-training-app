@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { CharactesInterface } from '../../models/character.interface';
 import { EpisodesInterface } from '../../models/episodes.interface';
 import { LocationInterface } from '../../models/location.interface';
@@ -12,6 +13,11 @@ export const CardComponent = ({ dataOfItem, dataType }: cardDataType) => {
   const characterStatus = (dataOfItem as CharactesInterface).status;
   const characterSpecies = (dataOfItem as CharactesInterface).species;
   const characterGender = (dataOfItem as CharactesInterface).gender;
+  const navigation = useNavigate();
+
+  const redirectToCharacters = () => {
+    navigation(`/characters/${dataOfItem.id}`)
+  }
 
   return (
     <>
@@ -26,7 +32,7 @@ export const CardComponent = ({ dataOfItem, dataType }: cardDataType) => {
             <p>Species - {characterSpecies}</p>
             <p>Gender - {characterGender}</p>
             <div className="card-actions justify-end">
-              <button className="btn btn-primary">Details</button>
+              <button className="btn btn-primary" onClick={redirectToCharacters}>Details</button>
             </div>
           </div>
         </div>
@@ -43,9 +49,6 @@ export const CardComponent = ({ dataOfItem, dataType }: cardDataType) => {
             <h2 className="card-title">{dataOfItem.name}</h2>
             <p>Date of Episode - {}</p>
             <p>Number of Episode - {}</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Details</button>
-            </div>
           </div>
         </div>
       )}
@@ -61,9 +64,6 @@ export const CardComponent = ({ dataOfItem, dataType }: cardDataType) => {
             <h2 className="card-title">{dataOfItem.name}</h2>
             <p>Type of location{}</p>
             <p>Demnsion of location {}</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Details</button>
-            </div>
           </div>
         </div>
       )}

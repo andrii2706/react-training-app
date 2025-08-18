@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 
 export function NaviagtionBar({
   children,
-  routes,
 }: {
   children: React.ReactNode;
-  routes: React.ReactNode;
 }) {
   const isLoggined = JSON.parse(localStorage.getItem('isUserLoggined') || 'false');
   const logoutUser = () => {
@@ -17,31 +15,8 @@ export function NaviagtionBar({
     <div className="drawer">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
-        <div className="navbar bg-base-300 w-full">
-          {isLoggined && (
-            <div className="flex-none">
-              <label
-                htmlFor="my-drawer-3"
-                aria-label="open sidebar"
-                className="btn btn-square btn-ghost"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  className="inline-block h-6 w-6 stroke-current"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  ></path>
-                </svg>
-              </label>
-            </div>
-          )}
-          <div className="mx-2 flex-1 px-2">
+        <div className="navbar flex justify-between items-center bg-base-300 w-full">
+          <div className="mx-2 px-2">
             {isLoggined && (
               <Link to="/home" title="Home">
                 Rick And Morty
@@ -53,6 +28,11 @@ export function NaviagtionBar({
               </Link>
             )}
           </div>
+          {isLoggined && (<div>
+                <Link to="/characters" title="Characters">Characters</Link>
+                <Link className='mx-5' to="/episodes" title="Episodes">Episodes</Link>
+                <Link to="/locations" title="Locations">Locations</Link>
+              </div>)}
           {isLoggined && (
             <div className="flex-none">
               <div className="dropdown dropdown-end mr-3">
@@ -126,10 +106,6 @@ export function NaviagtionBar({
           )}
         </div>
         {children}
-      </div>
-      <div className="drawer-side">
-        <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
-        <ul className="menu bg-base-200 min-h-full w-80 px-4 pb-4 pt-8">{routes}</ul>
       </div>
     </div>
   );

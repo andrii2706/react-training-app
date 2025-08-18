@@ -1,16 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CharactesInterface } from '../../shared/models/character.interface';
+import { PaginationInfoInterface } from '../../shared/models/array.interface';
+import { InitialCharactersStateInterface } from '../../shared/models/store.interface';
 
-//@ts-ignore
-const initialState = [];
+
+const initialState:InitialCharactersStateInterface = {
+  characters: [],
+  paginationInfo: null
+};
 
 const charactersData = createSlice({
   name: 'charactersData',
-  //@ts-ignore
   initialState,
   reducers: {
-    //@ts-ignore
-    charactersDataInfo: state => state.values,
+    setCharactersStore(state, action: PayloadAction<CharactesInterface[]>) {
+      state.characters = action.payload;
+    },
+     setPaginationInfoStore(state, action: PayloadAction<PaginationInfoInterface>) {
+      state.paginationInfo = action.payload;
+    },
   },
 });
 
+export const { setCharactersStore, setPaginationInfoStore } = charactersData.actions;
 export default charactersData.reducer;
