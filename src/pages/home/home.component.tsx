@@ -45,56 +45,61 @@ export const HomeComponent = () => {
   };
 
   const getCharactersDataFromFirebase = () => {
-    setLoader(true)
-      getCharactersDataFromFireBase().then(charactersFromFB => {
+    setLoader(true);
+    getCharactersDataFromFireBase()
+      .then(charactersFromFB => {
         charactersFromFB.forEach(charac => {
-         const char = charac as {id: string, characters: CharactesInterface[]}
-           setCharacters(char.characters)
-        })
-      }).catch((error) => console.error(error)).finally(() => setLoader(false))
-  }
+          const char = charac as { id: string; characters: CharactesInterface[] };
+          setCharacters(char.characters);
+        });
+      })
+      .catch(error => console.error(error))
+      .finally(() => setLoader(false));
+  };
 
   const getEpisodesDataFromFirebase = () => {
-    setLoader(true)
-      getEpisodesDataFromFireBase().then(charactersFromFB => {
+    setLoader(true);
+    getEpisodesDataFromFireBase()
+      .then(charactersFromFB => {
         charactersFromFB.forEach(charac => {
-         const char = charac as {id: string, episodes: EpisodesInterface[]}
-           setEpisodes(char.episodes)
-        })
-      }).catch((error) => console.error(error)).finally(() => setLoader(false))
-  }
+          const char = charac as { id: string; episodes: EpisodesInterface[] };
+          setEpisodes(char.episodes);
+        });
+      })
+      .catch(error => console.error(error))
+      .finally(() => setLoader(false));
+  };
 
   const getLocationsDataFromFirebase = () => {
-    setLoader(true)
-      getLocationsDataFromFireBase().then(charactersFromFB => {
+    setLoader(true);
+    getLocationsDataFromFireBase()
+      .then(charactersFromFB => {
         charactersFromFB.forEach(charac => {
-         const char = charac as {id: string, locations: LocationInterface[]}
-           setLocations(char.locations)
-        })
-      }).catch((error) => console.error(error)).finally(() => setLoader(false))
-  }
+          const char = charac as { id: string; locations: LocationInterface[] };
+          setLocations(char.locations);
+        });
+      })
+      .catch(error => console.error(error))
+      .finally(() => setLoader(false));
+  };
 
   const redirectToCharacters = () => {
-   navigate('/characters');
-  }
+    navigate('/characters');
+  };
 
   const redirectToLocations = () => {
-   navigate('/locations');
-  }
+    navigate('/locations');
+  };
 
   const redirectToEpisodes = () => {
-   navigate('/episodes');
-  }
-
-  const goToPageCharacters = (selectedItem: { selected: number }) => {
-    
+    navigate('/episodes');
   };
 
-  const goToPageEpisodes = (selectedItem: { selected: number }) => {
-  };
+  const goToPageCharacters = (selectedItem: { selected: number }) => {};
 
-  const goToPageLocations = (selectedItem: { selected: number }) => {
-  };
+  const goToPageEpisodes = (selectedItem: { selected: number }) => {};
+
+  const goToPageLocations = (selectedItem: { selected: number }) => {};
 
   useEffect(() => {
     getCharactersDataFromFirebase();
@@ -130,11 +135,14 @@ export const HomeComponent = () => {
                 ))}
               </div>
               {characters.length === 0 && (
-                <div className='flex justify-center items-center flex-col'>
-                    <h1 className='text-3xl'>Oops List of Characters is empty</h1>
-                    <p className='my-4'>Please choose Your favourite Character to it here. </p>
-                     <button className='btn btn-soft' onClick={redirectToCharacters}>Choose Character</button>
-              </div>)}
+                <div className="flex justify-center items-center flex-col">
+                  <h1 className="text-3xl">Oops List of Characters is empty</h1>
+                  <p className="my-4">Please choose Your favourite Character to it here. </p>
+                  <button className="btn btn-soft" onClick={redirectToCharacters}>
+                    Choose Character
+                  </button>
+                </div>
+              )}
               {characters.length > 10 && (
                 <div className="my-10">
                   <ReactPaginate
@@ -164,11 +172,14 @@ export const HomeComponent = () => {
                 ))}
               </div>
               {episodes.length === 0 && (
-                <div className='flex justify-center items-center flex-col'>
-                    <h1 className='text-3xl'>Oops List of Episodes is empty</h1>
-                    <p className='my-4'>Please choose Your favourite Episode to it here. </p>
-                    <button className='btn btn-soft' onClick={redirectToEpisodes}>Choose Episodes</button>
-              </div>)}
+                <div className="flex justify-center items-center flex-col">
+                  <h1 className="text-3xl">Oops List of Episodes is empty</h1>
+                  <p className="my-4">Please choose Your favourite Episode to it here. </p>
+                  <button className="btn btn-soft" onClick={redirectToEpisodes}>
+                    Choose Episodes
+                  </button>
+                </div>
+              )}
               {episodes.length > 10 && (
                 <div className="my-10">
                   <ReactPaginate
@@ -198,11 +209,14 @@ export const HomeComponent = () => {
                 ))}
               </div>
               {locations.length === 0 && (
-                <div className='flex justify-center items-center flex-col'>
-                    <h1 className='text-3xl'>Oops List of Locations is empty</h1>
-                    <p className='my-4'>Please choose Your favourite Location to it here. </p>
-                     <button className='btn btn-soft' onClick={redirectToLocations}>Choose Locations</button>
-              </div>)}
+                <div className="flex justify-center items-center flex-col">
+                  <h1 className="text-3xl">Oops List of Locations is empty</h1>
+                  <p className="my-4">Please choose Your favourite Location to it here. </p>
+                  <button className="btn btn-soft" onClick={redirectToLocations}>
+                    Choose Locations
+                  </button>
+                </div>
+              )}
               {locations.length > 10 && (
                 <div className="my-10">
                   <ReactPaginate

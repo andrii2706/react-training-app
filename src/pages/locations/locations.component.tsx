@@ -7,7 +7,10 @@ import { PaginationInfoInterface } from '../../shared/models/array.interface';
 import { getLocations } from '../../api-services/location.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { AppDispatch } from '../../store/store';
-import { setLocationsStore, setPaginationInfoStore } from '../../store/locations-data/location-data';
+import {
+  setLocationsStore,
+  setPaginationInfoStore,
+} from '../../store/locations-data/location-data';
 
 export const LocationComponent = () => {
   const [locations, setLocations] = useState([] as LocationInterface[]);

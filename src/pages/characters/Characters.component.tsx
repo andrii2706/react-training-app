@@ -48,7 +48,7 @@ export const CharactesComponent = () => {
 
   return (
     <section>
-    <LoaderComponent showLoader={showLoader}/>
+      <LoaderComponent showLoader={showLoader} />
       <div className="my-10 flex justify-center text-center">
         <h1 className="text-3xl">Characters</h1>
       </div>
