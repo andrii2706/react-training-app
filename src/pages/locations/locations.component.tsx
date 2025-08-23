@@ -1,15 +1,20 @@
 import ReactPaginate from 'react-paginate';
-import { CardComponent } from '../../shared/components/cards/card.component';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { CardComponent } from '../../shared/components/cards/card.component';
 import { LocationInterface } from '../../shared/models/location.interface';
 import { PaginationInfoInterface } from '../../shared/models/array.interface';
 import { getLocations } from '../../api-services/location.service';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { AppDispatch } from '../../store/store';
+import { setLocationsStore, setPaginationInfoStore } from '../../store/locations-data/location-data';
 
 export const LocationComponent = () => {
   const [locations, setLocations] = useState([] as LocationInterface[]);
   const [paginationInfo, setPaginationInfo] = useState({} as PaginationInfoInterface);
   const [page, setPage] = useState(1);
   const [showLoader, setLoader] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
 
   const locationsData = () => {
     setLoader(true);
@@ -17,6 +22,8 @@ export const LocationComponent = () => {
       .then(data => {
         setLocations(data.results);
         setPaginationInfo(data.info);
+        dispatch(setLocationsStore(data.results));
+        dispatch(setPaginationInfoStore(data.info));
       })
       .catch(error => {
         console.log(error);
@@ -38,11 +45,7 @@ export const LocationComponent = () => {
 
   return (
     <section>
-      {showLoader && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-50">
-          <span className="loading loading-dots loading-xl"></span>
-        </div>
-      )}
+      <LoaderComponent showLoader={showLoader} />
       <div className="grid justify-items-center small-desktop:grid-cols-2 2xl:grid-cols-3 gap-3 w-full">
         {locations.map((locations, index) => (
           <CardComponent key={index} dataOfItem={locations} dataType={'locations'} />

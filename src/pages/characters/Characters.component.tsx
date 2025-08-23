@@ -10,6 +10,7 @@ import {
   setCharactersStore,
   setPaginationInfoStore,
 } from '../../store/characters-data/characters-data';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
 
 export const CharactesComponent = () => {
   const [characters, setCharacters] = useState<CharactesInterface[]>([]);
@@ -25,7 +26,7 @@ export const CharactesComponent = () => {
         setCharacters(data.results);
         setPaginationInfo(data.info);
         dispatch(setCharactersStore(data.results));
-        dispatch(setPaginationInfoStore(data.results));
+        dispatch(setPaginationInfoStore(data.info));
       })
       .catch(error => {
         console.log(error);
@@ -47,11 +48,7 @@ export const CharactesComponent = () => {
 
   return (
     <section>
-      {showLoader && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-50">
-          <span className="loading loading-dots loading-xl"></span>
-        </div>
-      )}
+    <LoaderComponent showLoader={showLoader}/>
       <div className="my-10 flex justify-center text-center">
         <h1 className="text-3xl">Characters</h1>
       </div>

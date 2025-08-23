@@ -1,15 +1,20 @@
+import ReactPaginate from 'react-paginate';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { getEpisodes } from '../../api-services/episodes-api.service';
 import { CharactesInterface } from '../../shared/models/character.interface';
 import { PaginationInfoInterface } from '../../shared/models/array.interface';
-import ReactPaginate from 'react-paginate';
 import { CardComponent } from '../../shared/components/cards/card.component';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { AppDispatch } from '../../store/store';
+import { setEpisodesStore, setPaginationInfoStore } from '../../store/episodes/episodes-data';
 
 export const EpisodesComponent = () => {
   const [episodes, setEpisodes] = useState([] as CharactesInterface[]);
   const [paginationInfo, setPaginationInfo] = useState({} as PaginationInfoInterface);
   const [page, setPage] = useState(1);
   const [showLoader, setLoader] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
 
   const episodesData = () => {
     setLoader(true);
@@ -17,6 +22,8 @@ export const EpisodesComponent = () => {
       .then(data => {
         setEpisodes(data.results);
         setPaginationInfo(data.info);
+        dispatch(setEpisodesStore(data.results));
+        dispatch(setPaginationInfoStore(data.info));
       })
       .catch(error => {
         console.log(error);
@@ -27,8 +34,7 @@ export const EpisodesComponent = () => {
   };
 
   const goToPage = (selectedItem: { selected: number }) => {
-    setPage(selectedItem.selected);
-    episodesData();
+    setPage(selectedItem.selected + 1);
   };
 
   useEffect(() => {
@@ -38,11 +44,7 @@ export const EpisodesComponent = () => {
 
   return (
     <section>
-      {showLoader && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-50">
-          <span className="loading loading-dots loading-xl"></span>
-        </div>
-      )}
+      <LoaderComponent showLoader={showLoader} />
       <div className="grid justify-items-center small-desktop:grid-cols-2 2xl:grid-cols-3 gap-3 w-full">
         {episodes.map((episodes, index) => (
           <CardComponent key={index} dataOfItem={episodes} dataType={'episodes'} />

@@ -9,7 +9,7 @@ export interface CharactesInterface {
     name: string;
     url: string;
   };
-  locations: {
+  location: {
     name: string;
     url: string;
   };
