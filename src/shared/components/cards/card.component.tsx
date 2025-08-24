@@ -77,7 +77,6 @@ export const CardComponent = ({ dataOfItem, dataType }: cardDataType) => {
               </button>
             </div>
           </div>
-          
         </div>
       )}
     </>

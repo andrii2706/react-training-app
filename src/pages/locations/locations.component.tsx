@@ -51,12 +51,12 @@ export const LocationComponent = () => {
       </div>
       <div className="my-10">
         <PaginationComponent
-                          pageWindowSize={10}
-                          totalPages={paginationInfo.count}
-                          onPageChange={newPage => {
-                            setPage(newPage);
-                          }}
-                        />
+          pageWindowSize={10}
+          totalPages={paginationInfo.count}
+          onPageChange={newPage => {
+            setPage(newPage);
+          }}
+        />
       </div>
     </section>
   );

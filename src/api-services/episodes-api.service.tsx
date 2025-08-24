@@ -9,7 +9,7 @@ export const getEpisodes = (page: number) => {
 };
 export const getEpisodeForDetailsPage = (id: number) => {
   return fetch(`${apiRaw}/episode/${id}`).then(response => response.json());
-}
+};
 export const getEpisode = (url: string) => {
   return fetch(`${url}`).then(response => response.json());
 };
