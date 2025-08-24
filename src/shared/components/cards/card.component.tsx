@@ -40,7 +40,7 @@ export const CardComponent = ({ dataOfItem, dataType }: cardDataType) => {
         </div>
       )}
       {dataType === 'episodes' && (
-        <div className="card bg-base-100 w-96 shadow-sm">
+        <div className="card bg-base-100 w-96 shadow-sm bg-gray-500">
           <figure>
             <img
               src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -51,11 +51,16 @@ export const CardComponent = ({ dataOfItem, dataType }: cardDataType) => {
             <h2 className="card-title">{dataOfItem.name}</h2>
             <p>Date of Episode - {}</p>
             <p>Number of Episode - {}</p>
+            <div className="card-actions justify-end">
+              <button className="btn btn-primary" onClick={redirectToCharacters}>
+                Add to favourite
+              </button>
+            </div>
           </div>
         </div>
       )}
       {dataType === 'locations' && (
-        <div className="card bg-base-100 w-96 shadow-sm">
+        <div className="card bg-base-100 w-96 shadow-sm bg-gray-500">
           <figure>
             <img
               src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -66,7 +71,13 @@ export const CardComponent = ({ dataOfItem, dataType }: cardDataType) => {
             <h2 className="card-title">{dataOfItem.name}</h2>
             <p>Type of location{}</p>
             <p>Demnsion of location {}</p>
+            <div className="card-actions justify-end">
+              <button className="btn btn-primary" onClick={redirectToCharacters}>
+                Add to favourite
+              </button>
+            </div>
           </div>
+          
         </div>
       )}
     </>

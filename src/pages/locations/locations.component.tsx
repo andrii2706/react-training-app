@@ -1,4 +1,3 @@
-import ReactPaginate from 'react-paginate';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { CardComponent } from '../../shared/components/cards/card.component';
@@ -11,6 +10,7 @@ import {
   setLocationsStore,
   setPaginationInfoStore,
 } from '../../store/locations-data/location-data';
+import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 
 export const LocationComponent = () => {
   const [locations, setLocations] = useState([] as LocationInterface[]);
@@ -36,11 +36,6 @@ export const LocationComponent = () => {
       });
   };
 
-  const goToPage = (selectedItem: { selected: number }) => {
-    setPage(selectedItem.selected);
-    locationsData();
-  };
-
   useEffect(() => {
     locationsData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,21 +50,13 @@ export const LocationComponent = () => {
         ))}
       </div>
       <div className="my-10">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="next >"
-          pageRangeDisplayed={5}
-          pageCount={paginationInfo.pages}
-          onPageChange={goToPage}
-          previousLabel="< previous"
-          renderOnZeroPageCount={null}
-          containerClassName="flex justify-center space-x-2 pt-4"
-          pageClassName="btn btn-sm"
-          activeClassName="btn-primary"
-          previousClassName="btn btn-sm"
-          nextClassName="btn btn-sm"
-          breakClassName="btn btn-ghost btn-sm"
-        />
+        <PaginationComponent
+                          pageWindowSize={10}
+                          totalPages={paginationInfo.count}
+                          onPageChange={newPage => {
+                            setPage(newPage);
+                          }}
+                        />
       </div>
     </section>
   );

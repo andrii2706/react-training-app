@@ -1,7 +1,7 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { CharactesInterface } from '../../../shared/models/character.interface';
 import { useEffect, useState } from 'react';
-import { getCharaterFromBe } from '../../../api-services/characters-api.service';
+import { getCharaterFromBe, getResidentsFromBe } from '../../../api-services/characters-api.service';
 import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 import { getEpisode } from '../../../api-services/episodes-api.service';
 import { EpisodesInterface } from '../../../shared/models/episodes.interface';
@@ -10,8 +10,8 @@ import { LocationInterface } from '../../../shared/models/location.interface';
 
 export const CharactersDetailsComponent = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [character, setCharacter] = useState<CharactesInterface | null>(null);
+  const [residents, setResidents] = useState<CharactesInterface[] | null>(null);
   const [episodes, setEpisodes] = useState<EpisodesInterface[] | null>(null);
   const [location, setLocation] = useState<LocationInterface | null>(null);
   const [showLoader, setLoader] = useState(false);
@@ -26,7 +26,12 @@ export const CharactersDetailsComponent = () => {
           const locationUrl = data.origin.url as string;
 
           const episodesData = await Promise.all(episodeUrls.map(url => getEpisode(url)));
-          fetchPlanetData(locationUrl).then(location => {
+          fetchPlanetData(locationUrl).then( async location => {
+
+            const residentsUrl = location.residents as string[];
+            const residentsData = await Promise.all(residentsUrl.map(url => getResidentsFromBe(url)));
+
+            setResidents(residentsData)
             setLocation(location);
           });
           setEpisodes(episodesData);
@@ -51,9 +56,9 @@ export const CharactersDetailsComponent = () => {
     }
   };
 
-  const redirectToEpisode = (id: number) => {
-    navigate(`/episodes/${id}`);
-  };
+  const addToFavourite = () => {
+
+  }
 
   useEffect(() => {
     charactersData();
@@ -66,13 +71,14 @@ export const CharactersDetailsComponent = () => {
         <div className="flex items-center justify-between">
           <div>
             <img className="rounded-md" src={character?.image} alt={character?.name} />
-            <h2 className="text-3xl py-4 ">{character?.name}</h2>
           </div>
-          <div className="flex justify-end text-end flex-col">
-            <kbd className="kbd kbd-xl">Gender - {character?.gender}</kbd>
-            <kbd className="kbd kbd-xl my-4">Status - {character?.status}</kbd>
-            <kbd className="kbd kbd-xl">Location Name - {character?.location?.name}</kbd>
-            <kbd className="kbd kbd-xl my-4">Species - {character?.species}</kbd>
+          <div className="flex justify-end items-end flex-col">
+            <p className="badge badge-ghost text-xl">{character?.name}</p>
+            <p className="badge badge-ghost mt-4">Gender - {character?.gender}</p>
+            <p className="badge badge-ghost my-4">Status - {character?.status}</p>
+            <p className="badge badge-ghost">Location Name - {character?.location?.name}</p>
+            <p className="badge badge-ghost my-4">Species - {character?.species}</p>
+             <button className='btn btn-soft' onClick={addToFavourite}>Add to Favourite</button>
           </div>
         </div>
         <div>
@@ -85,9 +91,6 @@ export const CharactersDetailsComponent = () => {
                     <h2 className="text-3xl">{episode.name}</h2>
                     <p className="pt-5">Air Date: {episode.air_date}</p>
                     <p className="py-5">Episode: {episode.episode}</p>
-                    <button className="btn btn-soft" onClick={() => redirectToEpisode(episode.id)}>
-                      See Episode
-                    </button>
                   </div>
                 ))
               ) : (
@@ -106,6 +109,24 @@ export const CharactersDetailsComponent = () => {
               <h1>Location Name - {character?.origin.name}</h1>
               <p>Location dimension - {location?.dimension}</p>
               <p>Type Of location - {location?.type}</p>
+              <div className='flex justify-center items-center'>
+                 <h2 className='text-3xl'>Residents</h2>
+              </div>
+              {residents?.length ?  residents?.map(resident => (
+                  <div className="flex items-center justify-between py-10">
+          <div>
+            <img className="rounded-md" src={resident?.image} alt={resident?.name} />
+            <h2 className="text-3xl py-4 ">{resident?.name}</h2>
+          </div>
+          <div className="flex justify-end items-end flex-col">
+            <p className="badge badge-ghost">Gender - {resident?.gender}</p>
+            <p className="badge badge-ghost my-4">Status - {resident?.status}</p>
+            <p className="badge badge-ghost">Location Name - {resident?.location?.name}</p>
+            <p className="badge badge-ghost my-4">Species - {resident?.species}</p>
+          </div>
+                  </div>
+              )) : <div>This location doesn't have residents</div> }
+              
             </div>
           </div>
         </div>

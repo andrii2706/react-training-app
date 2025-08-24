@@ -3,7 +3,7 @@ export interface EpisodesInterface {
   name: string;
   air_date: string;
   episode: string;
-  characters: string;
+  characters: string[];
   url: string;
   created: string;
 }

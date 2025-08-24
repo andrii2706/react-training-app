@@ -7,6 +7,9 @@ const firestore = db;
 export const getEpisodes = (page: number) => {
   return fetch(`${apiRaw}/episode?page=${page}`).then(response => response.json());
 };
+export const getEpisodeForDetailsPage = (id: number) => {
+  return fetch(`${apiRaw}/episode/${id}`).then(response => response.json());
+}
 export const getEpisode = (url: string) => {
   return fetch(`${url}`).then(response => response.json());
 };

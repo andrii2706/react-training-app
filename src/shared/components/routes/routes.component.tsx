@@ -6,7 +6,6 @@ import { SettingsComponent } from '../../../pages/setting/settings.component';
 import { HomeComponent } from '../../../pages/home/home.component';
 import { EpisodesComponent } from '../../../pages/episodes/episodes.component';
 import { LocationComponent } from '../../../pages/locations/locations.component';
-import { MyWishListComponent } from '../../../pages/my-wish-list/my-wish-list.component';
 import ProtectPrivatePages from '../../guards/protect-private-pages/protect-private-pages.guard';
 import { CharactersDetailsComponent } from '../../../pages/characters/character-datails/Characters-Details.component';
 
@@ -72,15 +71,6 @@ export const ApplicationRoutes = () => {
             <ProtectPrivatePages isAllowed={isLoggined()}>
               {' '}
               <LocationComponent />
-            </ProtectPrivatePages>
-          }
-        />
-        <Route
-          path="/wish-list"
-          element={
-            <ProtectPrivatePages isAllowed={isLoggined()}>
-              {' '}
-              <MyWishListComponent />
             </ProtectPrivatePages>
           }
         />

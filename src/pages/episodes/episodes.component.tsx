@@ -1,4 +1,3 @@
-import ReactPaginate from 'react-paginate';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getEpisodes } from '../../api-services/episodes-api.service';
@@ -8,6 +7,7 @@ import { CardComponent } from '../../shared/components/cards/card.component';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { AppDispatch } from '../../store/store';
 import { setEpisodesStore, setPaginationInfoStore } from '../../store/episodes/episodes-data';
+import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 
 export const EpisodesComponent = () => {
   const [episodes, setEpisodes] = useState([] as CharactesInterface[]);
@@ -33,10 +33,6 @@ export const EpisodesComponent = () => {
       });
   };
 
-  const goToPage = (selectedItem: { selected: number }) => {
-    setPage(selectedItem.selected + 1);
-  };
-
   useEffect(() => {
     episodesData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,21 +47,13 @@ export const EpisodesComponent = () => {
         ))}
       </div>
       <div className="my-10">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="next >"
-          pageRangeDisplayed={5}
-          pageCount={paginationInfo.pages}
-          onPageChange={goToPage}
-          previousLabel="< previous"
-          renderOnZeroPageCount={null}
-          containerClassName="flex justify-center space-x-2 pt-4"
-          pageClassName="btn btn-sm"
-          activeClassName="btn-primary"
-          previousClassName="btn btn-sm"
-          nextClassName="btn btn-sm"
-          breakClassName="btn btn-ghost btn-sm"
-        />
+        <PaginationComponent
+                  pageWindowSize={10}
+                  totalPages={paginationInfo.count}
+                  onPageChange={newPage => {
+                    setPage(newPage);
+                  }}
+                />
       </div>
     </section>
   );
