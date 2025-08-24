@@ -52,8 +52,8 @@ export const CharactersDetailsComponent = () => {
   };
 
   const redirectToEpisode = (id: number) => {
-      navigate(`/episodes/${id}`)
-  }
+    navigate(`/episodes/${id}`);
+  };
 
   useEffect(() => {
     charactersData();
@@ -85,7 +85,9 @@ export const CharactersDetailsComponent = () => {
                     <h2 className="text-3xl">{episode.name}</h2>
                     <p className="pt-5">Air Date: {episode.air_date}</p>
                     <p className="py-5">Episode: {episode.episode}</p>
-                    <button className="btn btn-soft" onClick={() => redirectToEpisode(episode.id)}>See Episode</button>
+                    <button className="btn btn-soft" onClick={() => redirectToEpisode(episode.id)}>
+                      See Episode
+                    </button>
                   </div>
                 ))
               ) : (

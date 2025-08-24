@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { CharactesInterface } from '../../shared/models/character.interface';
 import { getCharactersFromBe } from '../../api-services/characters-api.service';
@@ -38,9 +37,8 @@ export const CharactesComponent = () => {
       });
   };
 
-  
   useEffect(() => {
-    charactersData();  
+    charactersData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -56,13 +54,14 @@ export const CharactesComponent = () => {
         ))}
       </div>
       <div className="my-10 flex justify-center items-center">
-         <PaginationComponent 
-         pageWindowSize={10} 
-         totalPages={paginationInfo.count}  
-         onPageChange={(newPage) => {
-          setPage(newPage);
-        }} />
-         </div>
+        <PaginationComponent
+          pageWindowSize={10}
+          totalPages={paginationInfo.count}
+          onPageChange={newPage => {
+            setPage(newPage);
+          }}
+        />
+      </div>
     </section>
   );
 };

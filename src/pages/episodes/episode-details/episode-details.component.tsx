@@ -1,3 +1,3 @@
 export const EpisodeDetailsComponent = () => {
-    return <></>
-}
+  return <></>;
+};

@@ -12,8 +12,8 @@ export const getCharaterFromBe = (id: number) => {
 };
 
 export const getResidentsFromBe = (url: string) => {
-  return fetch(url).then(responce => responce.json())
-}
+  return fetch(url).then(responce => responce.json());
+};
 
 export const getCharactersDataFromFireBase = async () => {
   const snapshot = await getDocs(collection(firestore, 'selectedCharacters'));
