@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { CharactesInterface } from '../../../shared/models/character.interface';
 import { useEffect, useState } from 'react';
 import { getCharaterFromBe } from '../../../api-services/characters-api.service';
@@ -10,6 +10,7 @@ import { LocationInterface } from '../../../shared/models/location.interface';
 
 export const CharactersDetailsComponent = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [character, setCharacter] = useState<CharactesInterface | null>(null);
   const [episodes, setEpisodes] = useState<EpisodesInterface[] | null>(null);
   const [location, setLocation] = useState<LocationInterface | null>(null);
@@ -50,6 +51,10 @@ export const CharactersDetailsComponent = () => {
     }
   };
 
+  const redirectToEpisode = (id: number) => {
+      navigate(`/episodes/${id}`)
+  }
+
   useEffect(() => {
     charactersData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,7 +85,7 @@ export const CharactersDetailsComponent = () => {
                     <h2 className="text-3xl">{episode.name}</h2>
                     <p className="pt-5">Air Date: {episode.air_date}</p>
                     <p className="py-5">Episode: {episode.episode}</p>
-                    <button className="btn btn-soft">See Episode</button>
+                    <button className="btn btn-soft" onClick={() => redirectToEpisode(episode.id)}>See Episode</button>
                   </div>
                 ))
               ) : (
@@ -100,9 +105,6 @@ export const CharactersDetailsComponent = () => {
               <p>Location dimension - {location?.dimension}</p>
               <p>Type Of location - {location?.type}</p>
             </div>
-
-            <input type="radio" name="my_tabs_2" className="tab" aria-label="Tab 3" />
-            <div className="tab-content border-base-300 bg-base-100 p-10">Tab content 3</div>
           </div>
         </div>
       </section>

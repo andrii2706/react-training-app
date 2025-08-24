@@ -10,6 +10,11 @@ export const getCharactersFromBe = (page: number) => {
 export const getCharaterFromBe = (id: number) => {
   return fetch(`${apiRaw}/character/${id}`).then(response => response.json());
 };
+
+export const getResidentsFromBe = (url: string) => {
+  return fetch(url).then(responce => responce.json())
+}
+
 export const getCharactersDataFromFireBase = async () => {
   const snapshot = await getDocs(collection(firestore, 'selectedCharacters'));
   return snapshot.docs.map(doc => ({
