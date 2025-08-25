@@ -3,7 +3,11 @@ import { useForm } from 'react-hook-form';
 import { SignInInterface } from '../../shared/models/authForm.inteface';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { registerUser, signInWithCredentials, signIsWithGoogle } from '../../api-services/auth.service';
+import {
+  registerUser,
+  signInWithCredentials,
+  signIsWithGoogle,
+} from '../../api-services/auth.service';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { SnackBarComponent } from '../../shared/components/snackbar/snackBar.component';

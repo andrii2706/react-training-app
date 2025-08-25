@@ -4,7 +4,10 @@ import { EpisodesInterface } from '../../models/episodes.interface';
 import { LocationInterface } from '../../models/location.interface';
 import { useState } from 'react';
 import { LoaderComponent } from '../loader/loader.component';
-import { addToFavouriteEpisodes, addToFavouriteLocations } from '../../../api-services/favouriteItems.service';
+import {
+  addToFavouriteEpisodes,
+  addToFavouriteLocations,
+} from '../../../api-services/favouriteItems.service';
 
 interface cardDataType {
   dataOfItem: CharactesInterface | EpisodesInterface | LocationInterface;
@@ -23,34 +26,37 @@ export const CardComponent = ({ dataOfItem, dataType }: cardDataType) => {
     navigation(`/characters/${dataOfItem.id}`);
   };
 
-  const addLocationToFavourite = (characterInfo: LocationInterface | null
-    ) => {
-      setLoader(true);
-      if(characterInfo){
-        addToFavouriteLocations(characterInfo).then(res => {
-          console.log(res)
-        }).catch(error => {
-          console.log(error)
-        }).finally(() => setLoader(false))
-      }  
-    };
+  const addLocationToFavourite = (characterInfo: LocationInterface | null) => {
+    setLoader(true);
+    if (characterInfo) {
+      addToFavouriteLocations(characterInfo)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .finally(() => setLoader(false));
+    }
+  };
 
-    const addEpisodeToFavourite = (characterInfo: EpisodesInterface | null
-      ) => {
-        setLoader(true);
-        if(characterInfo){
-          addToFavouriteEpisodes(characterInfo).then(res => {
-            console.log(res)
-          }).catch(error => {
-            console.log(error)
-          }).finally(() => setLoader(false))
-        }  
-      };
-
+  const addEpisodeToFavourite = (characterInfo: EpisodesInterface | null) => {
+    setLoader(true);
+    if (characterInfo) {
+      addToFavouriteEpisodes(characterInfo)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .finally(() => setLoader(false));
+    }
+  };
 
   return (
     <>
-    <LoaderComponent showLoader={showLoader} />
+      <LoaderComponent showLoader={showLoader} />
       {dataType === 'characters' && (
         <div className="card bg-base-100 w-96 pt-4 shadow-sm bg-gray-500">
           <figure>
@@ -80,7 +86,10 @@ export const CardComponent = ({ dataOfItem, dataType }: cardDataType) => {
           <div className="card-body">
             <h2 className="card-title">{dataOfItem.name}</h2>
             <div className="card-actions justify-end">
-              <button className="btn btn-primary" onClick={() => addEpisodeToFavourite(dataOfItem as EpisodesInterface)}>
+              <button
+                className="btn btn-primary"
+                onClick={() => addEpisodeToFavourite(dataOfItem as EpisodesInterface)}
+              >
                 Add to favourite
               </button>
             </div>
@@ -98,7 +107,10 @@ export const CardComponent = ({ dataOfItem, dataType }: cardDataType) => {
           <div className="card-body">
             <h2 className="card-title">{dataOfItem.name}</h2>
             <div className="card-actions justify-end">
-              <button className="btn btn-primary" onClick={() => addLocationToFavourite(dataOfItem as LocationInterface)}>
+              <button
+                className="btn btn-primary"
+                onClick={() => addLocationToFavourite(dataOfItem as LocationInterface)}
+              >
                 Add to favourite
               </button>
             </div>

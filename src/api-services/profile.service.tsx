@@ -1,6 +1,6 @@
-import { getAuth } from "firebase/auth";
+import { getAuth } from 'firebase/auth';
 
 export const getUserData = () => {
-    const auth = getAuth();
-    return auth.currentUser
+  const auth = getAuth();
+  return auth.currentUser;
 };

@@ -61,16 +61,18 @@ export const CharactersDetailsComponent = () => {
     }
   };
 
-  const addToFavourite = (characterInfo: CharactesInterface | null
-  ) => {
+  const addToFavourite = (characterInfo: CharactesInterface | null) => {
     setLoader(true);
-    if(characterInfo){
-      addToFavouriteCharacters(characterInfo).then(res => {
-        console.log(res)
-      }).catch(error => {
-        console.log(error)
-      }).finally(() => setLoader(false))
-    }  
+    if (characterInfo) {
+      addToFavouriteCharacters(characterInfo)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .finally(() => setLoader(false));
+    }
   };
 
   useEffect(() => {
@@ -91,7 +93,12 @@ export const CharactersDetailsComponent = () => {
             <p className="badge badge-ghost my-4">Status - {character?.status}</p>
             <p className="badge badge-ghost">Location Name - {character?.location?.name}</p>
             <p className="badge badge-ghost my-4">Species - {character?.species}</p>
-            <button className="btn btn-soft" onClick={() => {addToFavourite(character)}}>
+            <button
+              className="btn btn-soft"
+              onClick={() => {
+                addToFavourite(character);
+              }}
+            >
               Add to Favourite
             </button>
           </div>
