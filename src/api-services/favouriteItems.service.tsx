@@ -7,20 +7,20 @@ import { LocationInterface } from '../shared/models/location.interface';
 const firestore = db;
 
 export const addToFavouriteCharacters = async (character: CharactesInterface) => {
-  const docRef = doc(db, 'selectedCharacters', 'gTUFLCMkqAGaJt6wN4t4');
+  const docRef = doc(firestore, 'selectedCharacters', 'gTUFLCMkqAGaJt6wN4t4');
   await updateDoc(docRef, {
     characters: arrayUnion(character),
   });
 };
 
 export const addToFavouriteEpisodes = async (episodes: EpisodesInterface) => {
-  const docRef = doc(db, 'selectedEpisodes', 'mfIkFL2M1KLNq4IYaePM');
+  const docRef = doc(firestore, 'selectedEpisodes', 'mfIkFL2M1KLNq4IYaePM');
   await updateDoc(docRef, {
     characters: arrayUnion(episodes),
   });
 };
 export const addToFavouriteLocations = async (locations: LocationInterface) => {
-  const docRef = doc(db, 'selectedLocations', 'q5Um03nWj6KeBubp8BKR');
+  const docRef = doc(firestore, 'selectedLocations', 'q5Um03nWj6KeBubp8BKR');
   await updateDoc(docRef, {
     characters: arrayUnion(locations),
   });
