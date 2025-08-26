@@ -17,9 +17,14 @@ export function ProfileComponent() {
   return (
     <div>
       <h1 className="text-3xl">Profile</h1>
-      <div></div>
-      <div></div>
-      <div></div>
+      <div className='pt-8'> 
+        {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
+        {userInfo?.photoURL && <img src={userInfo?.photoURL} alt="User photo"/> }
+        <p>User name - {userInfo?.displayName}</p>
+        <p>User email - {userInfo?.email}</p>
+        <p>User phone number - {userInfo?.phoneNumber}</p>
+        <p></p> 
+        </div>
     </div>
   );
 }
