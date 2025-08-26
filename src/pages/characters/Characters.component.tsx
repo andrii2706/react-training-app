@@ -3,13 +3,22 @@ import { CharactesInterface } from '../../shared/models/character.interface';
 import { getCharactersFromBe } from '../../api-services/characters-api.service';
 import { PaginationInfoInterface } from '../../shared/models/array.interface';
 import { CardComponent } from '../../shared/components/cards/card.component';
-import ReactPaginate from 'react-paginate';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import {
+  setCharactersStore,
+  setPaginationInfoStore,
+} from '../../store/characters-data/characters-data';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 
 export const CharactesComponent = () => {
-  const [characters, setCharacters] = useState([] as CharactesInterface[]);
+  const [characters, setCharacters] = useState<CharactesInterface[]>([]);
   const [paginationInfo, setPaginationInfo] = useState({} as PaginationInfoInterface);
   const [page, setPage] = useState(1);
   const [showLoader, setLoader] = useState(false);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const charactersData = () => {
     setLoader(true);
@@ -17,6 +26,8 @@ export const CharactesComponent = () => {
       .then(data => {
         setCharacters(data.results);
         setPaginationInfo(data.info);
+        dispatch(setCharactersStore(data.results));
+        dispatch(setPaginationInfoStore(data.info));
       })
       .catch(error => {
         console.log(error);
@@ -26,44 +37,29 @@ export const CharactesComponent = () => {
       });
   };
 
-  const goToPage = (selectedItem: { selected: number }) => {
-    setPage(selectedItem.selected);
-    charactersData();
-  };
-
   useEffect(() => {
     charactersData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [page]);
 
   return (
     <section>
-      {showLoader && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-50">
-          <span className="loading loading-dots loading-xl"></span>
-        </div>
-      )}
-      <h1>Characters</h1>
-      <div className="grid justify-items-center grid-cols-3 gap-3 w-full">
+      <LoaderComponent showLoader={showLoader} />
+      <div className="my-10 flex justify-center text-center">
+        <h1 className="text-3xl">Characters</h1>
+      </div>
+      <div className="grid justify-items-center small-desktop:grid-cols-2 2xl:grid-cols-3 gap-3 w-full">
         {characters.map((character, index) => (
           <CardComponent key={index} dataOfItem={character} dataType={'characters'} />
         ))}
       </div>
-      <div className="my-10">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="next >"
-          pageRangeDisplayed={5}
-          pageCount={paginationInfo.pages}
-          onPageChange={goToPage}
-          previousLabel="< previous"
-          renderOnZeroPageCount={null}
-          containerClassName="flex justify-center space-x-2 pt-4"
-          pageClassName="btn btn-sm"
-          activeClassName="btn-primary"
-          previousClassName="btn btn-sm"
-          nextClassName="btn btn-sm"
-          breakClassName="btn btn-ghost btn-sm"
+      <div className="my-10 flex justify-center items-center">
+        <PaginationComponent
+          pageWindowSize={10}
+          totalPages={paginationInfo.count}
+          onPageChange={newPage => {
+            setPage(newPage);
+          }}
         />
       </div>
     </section>

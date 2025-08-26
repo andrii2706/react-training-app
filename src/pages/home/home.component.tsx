@@ -1,79 +1,24 @@
-import { useEffect, useState } from 'react';
-import { getCharactersFromBe } from '../../api-services/characters-api.service';
-import { getEpisodes } from '../../api-services/episodes-api.service';
-import { CardComponent } from '../../shared/components/cards/card.component';
 import ReactPaginate from 'react-paginate';
-import { PaginationInfoInterface } from '../../shared/models/array.interface';
+import { useEffect, useState } from 'react';
+import { getCharactersDataFromFireBase } from '../../api-services/characters-api.service';
+import { getEpisodesDataFromFireBase } from '../../api-services/episodes-api.service';
+import { CardComponent } from '../../shared/components/cards/card.component';
 import { CharactesInterface } from '../../shared/models/character.interface';
 import { EpisodesInterface } from '../../shared/models/episodes.interface';
 import { LocationInterface } from '../../shared/models/location.interface';
-import { getLocations } from '../../api-services/location.service';
+import { getLocationsDataFromFireBase } from '../../api-services/location.service';
+import { useNavigate } from 'react-router-dom';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
 
 export const HomeComponent = () => {
+  const navigate = useNavigate();
   const [showCharaters, setShowCharacters] = useState(true);
   const [showEpisodes, setShowEpisodes] = useState(false);
   const [showLocations, setShowLocations] = useState(false);
   const [characters, setCharacters] = useState([] as CharactesInterface[]);
   const [episodes, setEpisodes] = useState([] as EpisodesInterface[]);
   const [locations, setLocations] = useState([] as LocationInterface[]);
-  const [paginationCharacterInfo, setPaginationCharacterInfo] = useState(
-    {} as PaginationInfoInterface
-  );
-  const [paginationEpisodesInfo, setPaginationEpisodesInfo] = useState(
-    {} as PaginationInfoInterface
-  );
-  const [paginationLocationsInfo, setPaginationLocationsInfo] = useState(
-    {} as PaginationInfoInterface
-  );
-  const [pageCharacters, setPageCharacters] = useState(1);
-  const [pageEpisodes, setPageEpisodes] = useState(1);
-  const [pageLocations, setPageLocations] = useState(1);
   const [showLoader, setLoader] = useState(false);
-
-  const charactersData = () => {
-    setLoader(true);
-    getCharactersFromBe(pageCharacters)
-      .then(data => {
-        setCharacters(data.results);
-        setPaginationCharacterInfo(data.info);
-      })
-      .catch(error => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoader(false);
-      });
-  };
-
-  const episodesData = () => {
-    setLoader(true);
-    getEpisodes(pageEpisodes)
-      .then(data => {
-        setEpisodes(data.results);
-        setPaginationEpisodesInfo(data.info);
-      })
-      .catch(error => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoader(false);
-      });
-  };
-
-  const loadingData = () => {
-    setLoader(true);
-    getLocations(pageLocations)
-      .then(data => {
-        setLocations(data.results);
-        setPaginationLocationsInfo(data.info);
-      })
-      .catch(error => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoader(false);
-      });
-  };
 
   const changeCardsForPages = (typeOfCards: string) => {
     switch (typeOfCards) {
@@ -99,21 +44,67 @@ export const HomeComponent = () => {
     }
   };
 
-  const goToPageCharacters = (selectedItem: { selected: number }) => {
-    setPageCharacters(selectedItem.selected + 1);
-    charactersData();
-  };
-  const goToPageEpisodes = (selectedItem: { selected: number }) => {
-    setPageEpisodes(selectedItem.selected + 1);
-  };
-  const goToPageLocations = (selectedItem: { selected: number }) => {
-    setPageLocations(selectedItem.selected + 1);
+  const getCharactersDataFromFirebase = () => {
+    setLoader(true);
+    getCharactersDataFromFireBase()
+      .then(charactersFromFB => {
+        charactersFromFB.forEach(charac => {
+          const char = charac as { id: string; characters: CharactesInterface[] };
+          setCharacters(char.characters);
+        });
+      })
+      .catch(error => console.error(error))
+      .finally(() => setLoader(false));
   };
 
+  const getEpisodesDataFromFirebase = () => {
+    setLoader(true);
+    getEpisodesDataFromFireBase()
+      .then(charactersFromFB => {
+        charactersFromFB.forEach(charac => {
+          const char = charac as { id: string; episodes: EpisodesInterface[] };
+          setEpisodes(char.episodes);
+        });
+      })
+      .catch(error => console.error(error))
+      .finally(() => setLoader(false));
+  };
+
+  const getLocationsDataFromFirebase = () => {
+    setLoader(true);
+    getLocationsDataFromFireBase()
+      .then(charactersFromFB => {
+        charactersFromFB.forEach(charac => {
+          const char = charac as { id: string; locations: LocationInterface[] };
+          setLocations(char.locations);
+        });
+      })
+      .catch(error => console.error(error))
+      .finally(() => setLoader(false));
+  };
+
+  const redirectToCharacters = () => {
+    navigate('/characters');
+  };
+
+  const redirectToLocations = () => {
+    navigate('/locations');
+  };
+
+  const redirectToEpisodes = () => {
+    navigate('/episodes');
+  };
+
+  const goToPageCharacters = (selectedItem: { selected: number }) => {};
+
+  const goToPageEpisodes = (selectedItem: { selected: number }) => {};
+
+  const goToPageLocations = (selectedItem: { selected: number }) => {};
+
   useEffect(() => {
-    charactersData();
-    episodesData();
-    loadingData();
+    getCharactersDataFromFirebase();
+    getEpisodesDataFromFirebase();
+    getLocationsDataFromFirebase();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -125,46 +116,52 @@ export const HomeComponent = () => {
         </div>
         <div className="flex justify-center items-center mt-3 mb-5">
           <button className="btn btn-soft" onClick={() => changeCardsForPages('chracters')}>
-            Characters
+            Selected Characters
           </button>
           <button className="btn btn-soft mx-2" onClick={() => changeCardsForPages('episodes')}>
-            Episodes
+            Selected Episodes
           </button>
           <button className="btn btn-soft" onClick={() => changeCardsForPages('locations')}>
-            Locations
+            Selected Locations
           </button>
         </div>
         <div>
-          {showLoader && (
-            <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-50">
-              <span className="loading loading-dots loading-xl text-black"></span>
-            </div>
-          )}
-
+          <LoaderComponent showLoader={showLoader} />
           {showCharaters && (
             <div>
-              <div className="grid justify-items-center grid-cols-3 gap-3 w-full">
+              <div className="grid justify-items-center small-desktop:grid-cols-2 2xl:grid-cols-3 gap-3 w-full">
                 {characters.map((character, index) => (
                   <CardComponent key={index} dataOfItem={character} dataType={'characters'} />
                 ))}
               </div>
-              <div className="my-10">
-                <ReactPaginate
-                  breakLabel="..."
-                  nextLabel="next >"
-                  pageRangeDisplayed={5}
-                  pageCount={paginationCharacterInfo.pages}
-                  onPageChange={goToPageCharacters}
-                  previousLabel="< previous"
-                  renderOnZeroPageCount={null}
-                  containerClassName="flex justify-center space-x-2 pt-4"
-                  pageClassName="btn btn-sm"
-                  activeClassName="btn-primary"
-                  previousClassName="btn btn-sm"
-                  nextClassName="btn btn-sm"
-                  breakClassName="btn btn-ghost btn-sm"
-                />
-              </div>
+              {characters.length === 0 && (
+                <div className="flex justify-center items-center flex-col">
+                  <h1 className="text-3xl">Oops List of Characters is empty</h1>
+                  <p className="my-4">Please choose Your favourite Character to it here. </p>
+                  <button className="btn btn-soft" onClick={redirectToCharacters}>
+                    Choose Character
+                  </button>
+                </div>
+              )}
+              {characters.length > 10 && (
+                <div className="my-10">
+                  <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="next >"
+                    pageRangeDisplayed={5}
+                    pageCount={0}
+                    onPageChange={goToPageCharacters}
+                    previousLabel="< previous"
+                    renderOnZeroPageCount={null}
+                    containerClassName="flex justify-center space-x-2 pt-4"
+                    pageClassName="btn btn-sm"
+                    activeClassName="btn-primary"
+                    previousClassName="btn btn-sm"
+                    nextClassName="btn btn-sm"
+                    breakClassName="btn btn-ghost btn-sm"
+                  />
+                </div>
+              )}
             </div>
           )}
           {showEpisodes && (
@@ -174,23 +171,34 @@ export const HomeComponent = () => {
                   <CardComponent key={index} dataOfItem={episodes} dataType={'episodes'} />
                 ))}
               </div>
-              <div className="my-10">
-                <ReactPaginate
-                  breakLabel="..."
-                  nextLabel="next >"
-                  pageRangeDisplayed={5}
-                  pageCount={paginationEpisodesInfo.pages}
-                  onPageChange={goToPageEpisodes}
-                  previousLabel="< previous"
-                  renderOnZeroPageCount={null}
-                  containerClassName="flex justify-center space-x-2 pt-4"
-                  pageClassName="btn btn-sm"
-                  activeClassName="btn-primary"
-                  previousClassName="btn btn-sm"
-                  nextClassName="btn btn-sm"
-                  breakClassName="btn btn-ghost btn-sm"
-                />
-              </div>
+              {episodes.length === 0 && (
+                <div className="flex justify-center items-center flex-col">
+                  <h1 className="text-3xl">Oops List of Episodes is empty</h1>
+                  <p className="my-4">Please choose Your favourite Episode to it here. </p>
+                  <button className="btn btn-soft" onClick={redirectToEpisodes}>
+                    Choose Episodes
+                  </button>
+                </div>
+              )}
+              {episodes.length > 10 && (
+                <div className="my-10">
+                  <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="next >"
+                    pageRangeDisplayed={5}
+                    pageCount={0}
+                    onPageChange={goToPageEpisodes}
+                    previousLabel="< previous"
+                    renderOnZeroPageCount={null}
+                    containerClassName="flex justify-center space-x-2 pt-4"
+                    pageClassName="btn btn-sm"
+                    activeClassName="btn-primary"
+                    previousClassName="btn btn-sm"
+                    nextClassName="btn btn-sm"
+                    breakClassName="btn btn-ghost btn-sm"
+                  />
+                </div>
+              )}
             </div>
           )}
           {showLocations && (
@@ -200,23 +208,34 @@ export const HomeComponent = () => {
                   <CardComponent key={index} dataOfItem={locations} dataType={'locations'} />
                 ))}
               </div>
-              <div className="my-10">
-                <ReactPaginate
-                  breakLabel="..."
-                  nextLabel="next >"
-                  pageRangeDisplayed={5}
-                  pageCount={paginationLocationsInfo.pages}
-                  onPageChange={goToPageLocations}
-                  previousLabel="< previous"
-                  renderOnZeroPageCount={null}
-                  containerClassName="flex justify-center space-x-2 pt-4"
-                  pageClassName="btn btn-sm"
-                  activeClassName="btn-primary"
-                  previousClassName="btn btn-sm"
-                  nextClassName="btn btn-sm"
-                  breakClassName="btn btn-ghost btn-sm"
-                />
-              </div>
+              {locations.length === 0 && (
+                <div className="flex justify-center items-center flex-col">
+                  <h1 className="text-3xl">Oops List of Locations is empty</h1>
+                  <p className="my-4">Please choose Your favourite Location to it here. </p>
+                  <button className="btn btn-soft" onClick={redirectToLocations}>
+                    Choose Locations
+                  </button>
+                </div>
+              )}
+              {locations.length > 10 && (
+                <div className="my-10">
+                  <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="next >"
+                    pageRangeDisplayed={5}
+                    pageCount={0}
+                    onPageChange={goToPageLocations}
+                    previousLabel="< previous"
+                    renderOnZeroPageCount={null}
+                    containerClassName="flex justify-center space-x-2 pt-4"
+                    pageClassName="btn btn-sm"
+                    activeClassName="btn-primary"
+                    previousClassName="btn btn-sm"
+                    nextClassName="btn btn-sm"
+                    breakClassName="btn btn-ghost btn-sm"
+                  />
+                </div>
+              )}
             </div>
           )}
         </div>

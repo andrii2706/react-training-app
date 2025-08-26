@@ -6,14 +6,17 @@ import { SettingsComponent } from '../../../pages/setting/settings.component';
 import { HomeComponent } from '../../../pages/home/home.component';
 import { EpisodesComponent } from '../../../pages/episodes/episodes.component';
 import { LocationComponent } from '../../../pages/locations/locations.component';
-import { MyWishListComponent } from '../../../pages/my-wish-list/my-wish-list.component';
 import ProtectPrivatePages from '../../guards/protect-private-pages/protect-private-pages.guard';
+import { CharactersDetailsComponent } from '../../../pages/characters/character-datails/Characters-Details.component';
 
 export const ApplicationRoutes = () => {
   const isLoggined = () => {
     const status = localStorage.getItem('isUserLoggined');
-    const isLoggined = JSON.parse(status ? status : '');
-    return isLoggined ? isLoggined : localStorage.setItem('isUserLoggined', 'false');
+    if (status) {
+      return JSON.parse(status);
+    }
+    localStorage.setItem('isUserLoggined', 'false');
+    return false;
   };
 
   isLoggined();
@@ -72,11 +75,10 @@ export const ApplicationRoutes = () => {
           }
         />
         <Route
-          path="/wish-list"
+          path="/characters/:id"
           element={
             <ProtectPrivatePages isAllowed={isLoggined()}>
-              {' '}
-              <MyWishListComponent />
+              <CharactersDetailsComponent />
             </ProtectPrivatePages>
           }
         />
