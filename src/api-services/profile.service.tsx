@@ -6,32 +6,28 @@ export const getUserData = () => {
 };
 
 export const updateUserPhotoAndName = async (photoUrl: string, name: string) => {
-    const auth = getAuth();
-    const user = auth.currentUser as User;
-  if(user){
-    try{
+  const auth = getAuth();
+  const user = auth.currentUser as User;
+  if (user) {
+    try {
       await updateProfile(user, {
         displayName: name,
-        photoURL: photoUrl
-      })
-    }
-    catch(error){
-      console.log(error)
+        photoURL: photoUrl,
+      });
+    } catch (error) {
+      console.log(error);
     }
   }
-}
+};
 
 export const updateUserEmail = async (email: string) => {
-   const auth = getAuth();
-    const user = auth.currentUser as User;
-  if(user){
-    try{
-      await updateEmail(user, 
-        email
-      )
-    }
-    catch(error){
-      console.log(error)
+  const auth = getAuth();
+  const user = auth.currentUser as User;
+  if (user) {
+    try {
+      await updateEmail(user, email);
+    } catch (error) {
+      console.log(error);
     }
   }
-}
+};
