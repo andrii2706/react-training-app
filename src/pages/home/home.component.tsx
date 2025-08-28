@@ -1,4 +1,3 @@
-import ReactPaginate from 'react-paginate';
 import { useEffect, useState } from 'react';
 import { getCharactersDataFromFireBase } from '../../api-services/characters-api.service';
 import { getEpisodesDataFromFireBase } from '../../api-services/episodes-api.service';
@@ -95,12 +94,6 @@ export const HomeComponent = () => {
     navigate('/episodes');
   };
 
-  const goToPageCharacters = (selectedItem: { selected: number }) => {};
-
-  const goToPageEpisodes = (selectedItem: { selected: number }) => {};
-
-  const goToPageLocations = (selectedItem: { selected: number }) => {};
-
   useEffect(() => {
     getCharactersDataFromFirebase();
     getEpisodesDataFromFirebase();
@@ -143,25 +136,6 @@ export const HomeComponent = () => {
                   </button>
                 </div>
               )}
-              {characters.length > 10 && (
-                <div className="my-10">
-                  <ReactPaginate
-                    breakLabel="..."
-                    nextLabel="next >"
-                    pageRangeDisplayed={5}
-                    pageCount={0}
-                    onPageChange={goToPageCharacters}
-                    previousLabel="< previous"
-                    renderOnZeroPageCount={null}
-                    containerClassName="flex justify-center space-x-2 pt-4"
-                    pageClassName="btn btn-sm"
-                    activeClassName="btn-primary"
-                    previousClassName="btn btn-sm"
-                    nextClassName="btn btn-sm"
-                    breakClassName="btn btn-ghost btn-sm"
-                  />
-                </div>
-              )}
             </div>
           )}
           {showEpisodes && (
@@ -180,25 +154,6 @@ export const HomeComponent = () => {
                   </button>
                 </div>
               )}
-              {episodes.length > 10 && (
-                <div className="my-10">
-                  <ReactPaginate
-                    breakLabel="..."
-                    nextLabel="next >"
-                    pageRangeDisplayed={5}
-                    pageCount={0}
-                    onPageChange={goToPageEpisodes}
-                    previousLabel="< previous"
-                    renderOnZeroPageCount={null}
-                    containerClassName="flex justify-center space-x-2 pt-4"
-                    pageClassName="btn btn-sm"
-                    activeClassName="btn-primary"
-                    previousClassName="btn btn-sm"
-                    nextClassName="btn btn-sm"
-                    breakClassName="btn btn-ghost btn-sm"
-                  />
-                </div>
-              )}
             </div>
           )}
           {showLocations && (
@@ -215,25 +170,6 @@ export const HomeComponent = () => {
                   <button className="btn btn-soft" onClick={redirectToLocations}>
                     Choose Locations
                   </button>
-                </div>
-              )}
-              {locations.length > 10 && (
-                <div className="my-10">
-                  <ReactPaginate
-                    breakLabel="..."
-                    nextLabel="next >"
-                    pageRangeDisplayed={5}
-                    pageCount={0}
-                    onPageChange={goToPageLocations}
-                    previousLabel="< previous"
-                    renderOnZeroPageCount={null}
-                    containerClassName="flex justify-center space-x-2 pt-4"
-                    pageClassName="btn btn-sm"
-                    activeClassName="btn-primary"
-                    previousClassName="btn btn-sm"
-                    nextClassName="btn btn-sm"
-                    breakClassName="btn btn-ghost btn-sm"
-                  />
                 </div>
               )}
             </div>
