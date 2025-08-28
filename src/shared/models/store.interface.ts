@@ -7,7 +7,7 @@ import { LocationInterface } from './location.interface';
 export interface InitialCharactersStateInterface {
   characters: CharactesInterface[];
   paginationInfo: PaginationInfoInterface | null;
-  filterCharacters: FilterInterface | null
+  filterCharacters: FilterInterface | null;
 }
 
 export interface InitiaEpisodesStateInterface {

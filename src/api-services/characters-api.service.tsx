@@ -6,7 +6,9 @@ const apiRaw = 'https://rickandmortyapi.com/api';
 const firestore = db;
 
 export const getCharactersFromBe = (page: number, option?: FilterInterface) => {
-  return fetch(`${apiRaw}/character?page=${page}&name=${option?.name}&gender=${option?.gender}&species=${option?.species}`).then(response => response.json());
+  return fetch(
+    `${apiRaw}/character?page=${page}&name=${option?.name}&gender=${option?.gender}&species=${option?.species}`
+  ).then(response => response.json());
 };
 export const getCharaterFromBe = (id: number) => {
   return fetch(`${apiRaw}/character/${id}`).then(response => response.json());

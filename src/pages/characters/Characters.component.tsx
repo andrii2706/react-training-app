@@ -25,7 +25,7 @@ export const CharactesComponent = () => {
 
   const charactersData = (characterFilterData: FilterInterface) => {
     setLoader(true);
-    getCharactersFromBe(page,characterFilterData)
+    getCharactersFromBe(page, characterFilterData)
       .then(data => {
         setCharacters(data.results);
         setPaginationInfo(data.info);
@@ -41,11 +41,11 @@ export const CharactesComponent = () => {
   };
 
   useEffect(() => {
-    if (filterData){
+    if (filterData) {
       return charactersData(filterData);
-    }else {
-     return charactersData({name: '', gender: '', species: ''});
-    } ;
+    } else {
+      return charactersData({ name: '', gender: '', species: '' });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterData, page]);
 

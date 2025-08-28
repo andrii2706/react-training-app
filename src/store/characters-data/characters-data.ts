@@ -7,7 +7,7 @@ import { FilterInterface } from '../../shared/models/filter.interface';
 const initialState: InitialCharactersStateInterface = {
   characters: [],
   paginationInfo: null,
-  filterCharacters: null
+  filterCharacters: null,
 };
 
 const charactersData = createSlice({
@@ -20,9 +20,9 @@ const charactersData = createSlice({
     setPaginationInfoStore(state, action: PayloadAction<PaginationInfoInterface>) {
       state.paginationInfo = action.payload;
     },
-    setFilterData(state, action: PayloadAction<FilterInterface | null>){
-      state.filterCharacters = action.payload
-    }
+    setFilterData(state, action: PayloadAction<FilterInterface | null>) {
+      state.filterCharacters = action.payload;
+    },
   },
 });
 
