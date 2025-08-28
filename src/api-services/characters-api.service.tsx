@@ -1,11 +1,12 @@
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
+import { FilterInterface } from '../shared/models/filter.interface';
 
 const apiRaw = 'https://rickandmortyapi.com/api';
 const firestore = db;
 
-export const getCharactersFromBe = (page: number) => {
-  return fetch(`${apiRaw}/character?page=${page}`).then(response => response.json());
+export const getCharactersFromBe = (page: number, option?: FilterInterface) => {
+  return fetch(`${apiRaw}/character?page=${page}&name=${option?.name}&gender=${option?.gender}&species=${option?.species}`).then(response => response.json());
 };
 export const getCharaterFromBe = (id: number) => {
   return fetch(`${apiRaw}/character/${id}`).then(response => response.json());

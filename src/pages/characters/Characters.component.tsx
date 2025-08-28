@@ -3,16 +3,19 @@ import { CharactesInterface } from '../../shared/models/character.interface';
 import { getCharactersFromBe } from '../../api-services/characters-api.service';
 import { PaginationInfoInterface } from '../../shared/models/array.interface';
 import { CardComponent } from '../../shared/components/cards/card.component';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
 import {
   setCharactersStore,
   setPaginationInfoStore,
 } from '../../store/characters-data/characters-data';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
+import { SearchComponent } from '../../shared/components/filter/search.component';
+import { FilterInterface } from '../../shared/models/filter.interface';
 
 export const CharactesComponent = () => {
+  const filterData = useSelector((state: RootState) => state.characters.filterCharacters);
   const [characters, setCharacters] = useState<CharactesInterface[]>([]);
   const [paginationInfo, setPaginationInfo] = useState({} as PaginationInfoInterface);
   const [page, setPage] = useState(1);
@@ -20,9 +23,9 @@ export const CharactesComponent = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const charactersData = () => {
+  const charactersData = (characterFilterData: FilterInterface) => {
     setLoader(true);
-    getCharactersFromBe(page)
+    getCharactersFromBe(page,characterFilterData)
       .then(data => {
         setCharacters(data.results);
         setPaginationInfo(data.info);
@@ -38,13 +41,18 @@ export const CharactesComponent = () => {
   };
 
   useEffect(() => {
-    charactersData();
+    if (filterData){
+      return charactersData(filterData);
+    }else {
+     return charactersData({name: '', gender: '', species: ''});
+    } ;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [filterData, page]);
 
   return (
     <section>
       <LoaderComponent showLoader={showLoader} />
+      {characters.length && <SearchComponent />}
       <div className="my-10 flex justify-center text-center">
         <h1 className="text-3xl">Characters</h1>
       </div>
