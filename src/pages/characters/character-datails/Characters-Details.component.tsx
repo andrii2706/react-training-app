@@ -183,7 +183,7 @@ export const CharactersDetailsComponent = () => {
             <SnackBarComponent
               snackBarStatus="error"
               title="Opps!! we have an error"
-              description="We have an error with login, please wait some time"
+              description="Problem with saving this character to favourite api"
             />
           )}
           {snackBarWarning && (

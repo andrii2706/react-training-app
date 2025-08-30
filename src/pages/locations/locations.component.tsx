@@ -66,7 +66,7 @@ export const LocationComponent = () => {
         <SnackBarComponent
           snackBarStatus="error"
           title="Opps!! we have an error"
-          description="We have an error with login, please wait some time"
+          description="Problem with locations api"
         />
       )}
     </section>
