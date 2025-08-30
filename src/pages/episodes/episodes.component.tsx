@@ -8,12 +8,15 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
 import { AppDispatch } from '../../store/store';
 import { setEpisodesStore, setPaginationInfoStore } from '../../store/episodes/episodes-data';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
+import { SnackBarComponent } from '../../shared/components/snackbar/snackBar.component';
 
 export const EpisodesComponent = () => {
   const [episodes, setEpisodes] = useState([] as CharactesInterface[]);
   const [paginationInfo, setPaginationInfo] = useState({} as PaginationInfoInterface);
   const [page, setPage] = useState(1);
   const [showLoader, setLoader] = useState(false);
+  const [snackBarError, showSnackBarError] = useState(false);
+    const [snackBarWarning, showSnackBarWarning] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
   const episodesData = () => {
@@ -26,7 +29,10 @@ export const EpisodesComponent = () => {
         dispatch(setPaginationInfoStore(data.info));
       })
       .catch(error => {
-        console.log(error);
+       if(error){
+          showSnackBarError(true);
+            showSnackBarWarning(false);
+        }
       })
       .finally(() => {
         setLoader(false);
@@ -55,6 +61,22 @@ export const EpisodesComponent = () => {
           }}
         />
       </div>
+      <div>
+                    {snackBarError && (
+                      <SnackBarComponent
+                        snackBarStatus="error"
+                        title="Opps!! we have an error"
+                        description="We have an error with login, please wait some time"
+                      />
+                    )}
+                    {snackBarWarning && (
+                      <SnackBarComponent
+                        snackBarStatus="warning"
+                        title="Warning Issue"
+                        description="Opps!! Update page or contact with our support"
+                      />
+                    )}
+                  </div>
     </section>
   );
 };

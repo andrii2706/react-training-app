@@ -11,6 +11,7 @@ import { EpisodesInterface } from '../../../shared/models/episodes.interface';
 import { getLocationForCharacter } from '../../../api-services/location.service';
 import { LocationInterface } from '../../../shared/models/location.interface';
 import { addToFavouriteCharacters } from '../../../api-services/favouriteItems.service';
+import { SnackBarComponent } from '../../../shared/components/snackbar/snackBar.component';
 
 export const CharactersDetailsComponent = () => {
   const { id } = useParams();
@@ -19,6 +20,9 @@ export const CharactersDetailsComponent = () => {
   const [episodes, setEpisodes] = useState<EpisodesInterface[] | null>(null);
   const [location, setLocation] = useState<LocationInterface | null>(null);
   const [showLoader, setLoader] = useState(false);
+    const [snackBarError, showSnackBarError] = useState(false);
+    const [snackBarWarning, showSnackBarWarning] = useState(false);
+      const [snackBarSuccess, showSnackBarSuccess] = useState(false);
 
   const charactersData = () => {
     setLoader(true);
@@ -42,7 +46,10 @@ export const CharactersDetailsComponent = () => {
           setEpisodes(episodesData);
         })
         .catch(error => {
-          console.log(error);
+          if(error){
+          showSnackBarError(true);
+            showSnackBarWarning(true);
+        }
         })
         .finally(() => {
           setLoader(false);
@@ -56,7 +63,10 @@ export const CharactersDetailsComponent = () => {
       const res = await getLocationForCharacter(url);
       return await res;
     } catch (error) {
-      console.error(error);
+     if(error){
+          showSnackBarError(true);
+            showSnackBarWarning(true);
+        }
       return null;
     }
   };
@@ -66,10 +76,14 @@ export const CharactersDetailsComponent = () => {
     if (characterInfo) {
       addToFavouriteCharacters(characterInfo)
         .then(res => {
-          console.log(res);
+          showSnackBarSuccess(true);
         })
         .catch(error => {
-          console.log(error);
+          if(error){
+          showSnackBarError(true);
+            showSnackBarWarning(false);
+            showSnackBarSuccess(false);
+        }
         })
         .finally(() => setLoader(false));
     }
@@ -156,7 +170,29 @@ export const CharactersDetailsComponent = () => {
               )}
             </div>
           </div>
-        </div>
+        </div><div>
+          {snackBarSuccess && (
+          <SnackBarComponent
+            snackBarStatus="success"
+            title="Success"
+            description="You have been loggined Successfully"
+          />
+        )}
+                      {snackBarError && (
+                        <SnackBarComponent
+                          snackBarStatus="error"
+                          title="Opps!! we have an error"
+                          description="We have an error with login, please wait some time"
+                        />
+                      )}
+                      {snackBarWarning && (
+                        <SnackBarComponent
+                          snackBarStatus="warning"
+                          title="Warning Issue"
+                          description="Opps!! Update page or contact with our support"
+                        />
+                      )}
+                    </div>
       </section>
     </>
   );

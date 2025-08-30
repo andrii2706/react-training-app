@@ -49,7 +49,11 @@ export const AuthComponent = () => {
         }
       })
       .catch(error => {
-        console.error(error);
+        if(error){
+          showSnackBarError(true);
+           showSnackBarSuccess(false);
+            showSnackBarWarning(true);
+        }
       });
   };
 
@@ -69,9 +73,10 @@ export const AuthComponent = () => {
         }
       })
       .catch(error => {
-        console.error(error);
-        showSnackBarError(true);
+        if(error){
+showSnackBarError(true);
         showSnackBarSuccess(false);
+        }
       });
   };
 
@@ -91,7 +96,6 @@ export const AuthComponent = () => {
         }
       })
       .catch(error => {
-        console.error(error);
         showSnackBarError(true);
         showSnackBarSuccess(false);
       });

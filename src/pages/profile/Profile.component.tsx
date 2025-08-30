@@ -1,12 +1,17 @@
 import { User } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { getUserData } from '../../api-services/profile.service';
+import { SnackBarComponent } from '../../shared/components/snackbar/snackBar.component';
 
 export function ProfileComponent() {
   const [userInfo, setUserInfo] = useState<User | null>(null);
+    const [snackBarError, showSnackBarError] = useState(false);
 
   const getUserInfo = () => {
-    setUserInfo(getUserData);
+    setUserInfo(getUserData)
+    if(!getUserData){
+ showSnackBarError(true);
+    }
   };
 
   useEffect(() => {
@@ -25,6 +30,13 @@ export function ProfileComponent() {
         <p>User phone number - {userInfo?.phoneNumber}</p>
         <p></p>
       </div>
+      {snackBarError && (
+                              <SnackBarComponent
+                                snackBarStatus="error"
+                                title="Opps!! we have an error"
+                                description="We have an error with login, please wait some time"
+                              />
+                            )}
     </div>
   );
 }

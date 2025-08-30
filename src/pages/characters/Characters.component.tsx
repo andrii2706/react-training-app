@@ -13,6 +13,7 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { SearchComponent } from '../../shared/components/filter/search.component';
 import { FilterInterface } from '../../shared/models/filter.interface';
+import { SnackBarComponent } from '../../shared/components/snackbar/snackBar.component';
 
 export const CharactesComponent = () => {
   const filterData = useSelector((state: RootState) => state.characters.filterCharacters);
@@ -20,6 +21,8 @@ export const CharactesComponent = () => {
   const [paginationInfo, setPaginationInfo] = useState({} as PaginationInfoInterface);
   const [page, setPage] = useState(1);
   const [showLoader, setLoader] = useState(false);
+  const [snackBarError, showSnackBarError] = useState(false);
+  const [snackBarWarning, showSnackBarWarning] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -33,7 +36,10 @@ export const CharactesComponent = () => {
         dispatch(setPaginationInfoStore(data.info));
       })
       .catch(error => {
-        console.log(error);
+       if(error){
+          showSnackBarError(true);
+            showSnackBarWarning(true);
+        }
       })
       .finally(() => {
         setLoader(false);
@@ -70,6 +76,22 @@ export const CharactesComponent = () => {
           }}
         />
       </div>
+      <div>
+              {snackBarError && (
+                <SnackBarComponent
+                  snackBarStatus="error"
+                  title="Opps!! we have an error"
+                  description="We have an error with login, please wait some time"
+                />
+              )}
+              {snackBarWarning && (
+                <SnackBarComponent
+                  snackBarStatus="warning"
+                  title="Warning Issue"
+                  description="Opps!! Update page or contact with our support"
+                />
+              )}
+            </div>
     </section>
   );
 };

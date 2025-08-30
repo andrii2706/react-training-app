@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { updateUserEmail, updateUserPhotoAndName } from '../../api-services/profile.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { SnackBarComponent } from '../../shared/components/snackbar/snackBar.component';
 
 export const SettingsComponent = () => {
   const {
@@ -19,6 +20,7 @@ export const SettingsComponent = () => {
   const [updateEmailForm, showUpdateUserForm] = useState(false);
   const [fileString, setFileString] = useState<string | null>(null);
   const [showLoader, setLoader] = useState(false);
+  const [snackBarError, showSnackBarError] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -38,7 +40,9 @@ export const SettingsComponent = () => {
     updateUserPhotoAndName(fileString as string, data.name)
       .then(() => {})
       .catch(error => {
-        console.error(error);
+        if(error){
+           showSnackBarError(true);
+        }
       })
       .finally(() => setLoader(false));
   };
@@ -47,7 +51,9 @@ export const SettingsComponent = () => {
     updateUserEmail(data.email)
       .then(() => {})
       .catch(error => {
-        console.error(error);
+       if(error){
+           showSnackBarError(true);
+        }
       })
       .finally(() => setLoader(false));
   };
@@ -106,6 +112,13 @@ export const SettingsComponent = () => {
           </button>
         </form>
       )}
+      {snackBarError && (
+                              <SnackBarComponent
+                                snackBarStatus="error"
+                                title="Opps!! we have an error"
+                                description="We have an error with login, please wait some time"
+                              />
+                            )}
     </div>
   );
 };

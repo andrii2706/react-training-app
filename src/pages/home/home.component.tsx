@@ -8,6 +8,7 @@ import { LocationInterface } from '../../shared/models/location.interface';
 import { getLocationsDataFromFireBase } from '../../api-services/location.service';
 import { useNavigate } from 'react-router-dom';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { SnackBarComponent } from '../../shared/components/snackbar/snackBar.component';
 
 export const HomeComponent = () => {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ export const HomeComponent = () => {
   const [episodes, setEpisodes] = useState([] as EpisodesInterface[]);
   const [locations, setLocations] = useState([] as LocationInterface[]);
   const [showLoader, setLoader] = useState(false);
+  const [snackBarError, showSnackBarError] = useState(false);
+    const [snackBarWarning, showSnackBarWarning] = useState(false);
 
   const changeCardsForPages = (typeOfCards: string) => {
     switch (typeOfCards) {
@@ -52,7 +55,12 @@ export const HomeComponent = () => {
           setCharacters(char.characters);
         });
       })
-      .catch(error => console.error(error))
+      .catch(error =>{
+        if(error){
+          showSnackBarError(true);
+            showSnackBarWarning(true);
+        }
+      })
       .finally(() => setLoader(false));
   };
 
@@ -65,7 +73,10 @@ export const HomeComponent = () => {
           setEpisodes(char.episodes);
         });
       })
-      .catch(error => console.error(error))
+      .catch(error => {if(error){
+          showSnackBarError(true);
+            showSnackBarWarning(true);
+        }})
       .finally(() => setLoader(false));
   };
 
@@ -78,7 +89,12 @@ export const HomeComponent = () => {
           setLocations(char.locations);
         });
       })
-      .catch(error => console.error(error))
+      .catch(error => {
+        if(error){
+          showSnackBarError(true);
+            showSnackBarWarning(false);
+        }
+      } )
       .finally(() => setLoader(false));
   };
 
@@ -175,6 +191,22 @@ export const HomeComponent = () => {
             </div>
           )}
         </div>
+        <div>
+                      {snackBarError && (
+                        <SnackBarComponent
+                          snackBarStatus="error"
+                          title="Opps!! we have an error"
+                          description="We have an error with login, please wait some time"
+                        />
+                      )}
+                      {snackBarWarning && (
+                        <SnackBarComponent
+                          snackBarStatus="warning"
+                          title="Warning Issue"
+                          description="Opps!! Update page or contact with our support"
+                        />
+                      )}
+                    </div>
       </section>
     </>
   );
