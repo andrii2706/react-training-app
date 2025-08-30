@@ -18,7 +18,7 @@ export const LocationComponent = () => {
   const [paginationInfo, setPaginationInfo] = useState({} as PaginationInfoInterface);
   const [page, setPage] = useState(1);
   const [showLoader, setLoader] = useState(false);
-   const [snackBarError, showSnackBarError] = useState(false);
+  const [snackBarError, showSnackBarError] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
   const locationsData = () => {
@@ -31,8 +31,8 @@ export const LocationComponent = () => {
         dispatch(setPaginationInfoStore(data.info));
       })
       .catch(error => {
-        if(error){
-           showSnackBarError(true);
+        if (error) {
+          showSnackBarError(true);
         }
       })
       .finally(() => {
@@ -63,12 +63,12 @@ export const LocationComponent = () => {
         />
       </div>
       {snackBarError && (
-                              <SnackBarComponent
-                                snackBarStatus="error"
-                                title="Opps!! we have an error"
-                                description="We have an error with login, please wait some time"
-                              />
-                            )}
+        <SnackBarComponent
+          snackBarStatus="error"
+          title="Opps!! we have an error"
+          description="We have an error with login, please wait some time"
+        />
+      )}
     </section>
   );
 };

@@ -49,10 +49,10 @@ export const AuthComponent = () => {
         }
       })
       .catch(error => {
-        if(error){
+        if (error) {
           showSnackBarError(true);
-           showSnackBarSuccess(false);
-            showSnackBarWarning(true);
+          showSnackBarSuccess(false);
+          showSnackBarWarning(true);
         }
       });
   };
@@ -73,9 +73,9 @@ export const AuthComponent = () => {
         }
       })
       .catch(error => {
-        if(error){
-showSnackBarError(true);
-        showSnackBarSuccess(false);
+        if (error) {
+          showSnackBarError(true);
+          showSnackBarSuccess(false);
         }
       });
   };

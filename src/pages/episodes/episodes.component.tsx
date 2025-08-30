@@ -16,7 +16,7 @@ export const EpisodesComponent = () => {
   const [page, setPage] = useState(1);
   const [showLoader, setLoader] = useState(false);
   const [snackBarError, showSnackBarError] = useState(false);
-    const [snackBarWarning, showSnackBarWarning] = useState(false);
+  const [snackBarWarning, showSnackBarWarning] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
   const episodesData = () => {
@@ -29,9 +29,9 @@ export const EpisodesComponent = () => {
         dispatch(setPaginationInfoStore(data.info));
       })
       .catch(error => {
-       if(error){
+        if (error) {
           showSnackBarError(true);
-            showSnackBarWarning(false);
+          showSnackBarWarning(false);
         }
       })
       .finally(() => {
@@ -62,21 +62,21 @@ export const EpisodesComponent = () => {
         />
       </div>
       <div>
-                    {snackBarError && (
-                      <SnackBarComponent
-                        snackBarStatus="error"
-                        title="Opps!! we have an error"
-                        description="We have an error with login, please wait some time"
-                      />
-                    )}
-                    {snackBarWarning && (
-                      <SnackBarComponent
-                        snackBarStatus="warning"
-                        title="Warning Issue"
-                        description="Opps!! Update page or contact with our support"
-                      />
-                    )}
-                  </div>
+        {snackBarError && (
+          <SnackBarComponent
+            snackBarStatus="error"
+            title="Opps!! we have an error"
+            description="We have an error with login, please wait some time"
+          />
+        )}
+        {snackBarWarning && (
+          <SnackBarComponent
+            snackBarStatus="warning"
+            title="Warning Issue"
+            description="Opps!! Update page or contact with our support"
+          />
+        )}
+      </div>
     </section>
   );
 };

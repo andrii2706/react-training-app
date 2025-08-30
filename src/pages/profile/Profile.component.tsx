@@ -5,12 +5,12 @@ import { SnackBarComponent } from '../../shared/components/snackbar/snackBar.com
 
 export function ProfileComponent() {
   const [userInfo, setUserInfo] = useState<User | null>(null);
-    const [snackBarError, showSnackBarError] = useState(false);
+  const [snackBarError, showSnackBarError] = useState(false);
 
   const getUserInfo = () => {
-    setUserInfo(getUserData)
-    if(!getUserData){
- showSnackBarError(true);
+    setUserInfo(getUserData);
+    if (!getUserData) {
+      showSnackBarError(true);
     }
   };
 
@@ -31,12 +31,12 @@ export function ProfileComponent() {
         <p></p>
       </div>
       {snackBarError && (
-                              <SnackBarComponent
-                                snackBarStatus="error"
-                                title="Opps!! we have an error"
-                                description="We have an error with login, please wait some time"
-                              />
-                            )}
+        <SnackBarComponent
+          snackBarStatus="error"
+          title="Opps!! we have an error"
+          description="We have an error with login, please wait some time"
+        />
+      )}
     </div>
   );
 }

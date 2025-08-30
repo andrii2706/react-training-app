@@ -40,8 +40,8 @@ export const SettingsComponent = () => {
     updateUserPhotoAndName(fileString as string, data.name)
       .then(() => {})
       .catch(error => {
-        if(error){
-           showSnackBarError(true);
+        if (error) {
+          showSnackBarError(true);
         }
       })
       .finally(() => setLoader(false));
@@ -51,8 +51,8 @@ export const SettingsComponent = () => {
     updateUserEmail(data.email)
       .then(() => {})
       .catch(error => {
-       if(error){
-           showSnackBarError(true);
+        if (error) {
+          showSnackBarError(true);
         }
       })
       .finally(() => setLoader(false));
@@ -113,12 +113,12 @@ export const SettingsComponent = () => {
         </form>
       )}
       {snackBarError && (
-                              <SnackBarComponent
-                                snackBarStatus="error"
-                                title="Opps!! we have an error"
-                                description="We have an error with login, please wait some time"
-                              />
-                            )}
+        <SnackBarComponent
+          snackBarStatus="error"
+          title="Opps!! we have an error"
+          description="We have an error with login, please wait some time"
+        />
+      )}
     </div>
   );
 };

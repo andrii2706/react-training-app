@@ -36,9 +36,9 @@ export const CharactesComponent = () => {
         dispatch(setPaginationInfoStore(data.info));
       })
       .catch(error => {
-       if(error){
+        if (error) {
           showSnackBarError(true);
-            showSnackBarWarning(true);
+          showSnackBarWarning(true);
         }
       })
       .finally(() => {
@@ -77,21 +77,21 @@ export const CharactesComponent = () => {
         />
       </div>
       <div>
-              {snackBarError && (
-                <SnackBarComponent
-                  snackBarStatus="error"
-                  title="Opps!! we have an error"
-                  description="We have an error with login, please wait some time"
-                />
-              )}
-              {snackBarWarning && (
-                <SnackBarComponent
-                  snackBarStatus="warning"
-                  title="Warning Issue"
-                  description="Opps!! Update page or contact with our support"
-                />
-              )}
-            </div>
+        {snackBarError && (
+          <SnackBarComponent
+            snackBarStatus="error"
+            title="Opps!! we have an error"
+            description="We have an error with login, please wait some time"
+          />
+        )}
+        {snackBarWarning && (
+          <SnackBarComponent
+            snackBarStatus="warning"
+            title="Warning Issue"
+            description="Opps!! Update page or contact with our support"
+          />
+        )}
+      </div>
     </section>
   );
 };
